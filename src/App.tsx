@@ -105,6 +105,23 @@ const timelineEvents = [
   },
 ]
 
+const dressSuggestions = [
+  'Women: Traditional saree or lehenga in elegant tones.',
+  'Men: Kurta set, bandhagala, or smart Indo-western attire.',
+  'Couples/Families: Coordinated looks for beautiful photos.',
+]
+
+const dressPalette = [
+  { name: 'Powder Blue', color: '#bfd6f2' },
+  { name: 'Blush Pink', color: '#f6d2dc' },
+  { name: 'Lilac Mist', color: '#ddd3f5' },
+  { name: 'Sage Pastel', color: '#cfe2d4' },
+  { name: 'Peach Cream', color: '#f7dfcd' },
+  { name: 'Ivory Pearl', color: '#f8f3e9' },
+]
+
+const dressThemes = ['Traditional Elegance', 'Indo-Western Grace', 'Pastel Royal', 'Festive Chic']
+
 // Countdown renderer
 const CountdownRenderer = ({ days, hours, minutes, seconds }: any) => (
   <div className="countdown-grid">
@@ -209,6 +226,7 @@ function App() {
         </motion.a>
         <div className="nav-links">
           <a href="#details">Details</a>
+          <a href="#dress">Dress</a>
           <a href="#experience">Experience</a>
           <a href="#venue">Venue</a>
         </div>
@@ -379,6 +397,47 @@ function App() {
         </div>
       </motion.section>
 
+      <motion.section className="dress-section" id="dress" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Dress Inspiration</h2>
+          <p>Look coordinated, festive, and photo-ready</p>
+        </div>
+
+        <div className="dress-layout">
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Suggested Attire</h3>
+            <ul className="dress-list">
+              {dressSuggestions.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Color Palette</h3>
+            <div className="palette-grid">
+              {dressPalette.map((shade) => (
+                <div className="palette-item" key={shade.name}>
+                  <span className="palette-dot" style={{ backgroundColor: shade.color }} aria-hidden="true" />
+                  <span>{shade.name}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Theme</h3>
+            <div className="theme-tags">
+              {dressThemes.map((theme) => (
+                <span key={theme} className="theme-tag">
+                  {theme}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
       <motion.section className="timeline-section" id="experience" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Experience Timeline</h2>
@@ -500,7 +559,11 @@ function App() {
             ✨
           </motion.div>
         </motion.div>
+        <div className="closing-bottom" aria-label="Copyright">
+          <p className="closing-copyright">✦ © 2026 Harshit Rana. All Rights Reserved. ✦</p>
+        </div>
       </motion.section>
+
     </main>
   )
 }

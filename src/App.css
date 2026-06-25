@@ -163,9 +163,26 @@ main {
   margin: 0;
   font-family: 'Cinzel', serif;
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--secondary);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  background: linear-gradient(120deg, #7c113a 0%, #b78d4a 52%, #7c113a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 10px rgba(124, 17, 58, 0.18);
+  position: relative;
+}
+
+.nav-hashtag::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(183, 141, 74, 0.9), transparent);
+  opacity: 0.8;
 }
 
 /* ===== HERO FULLSCREEN ===== */
@@ -197,6 +214,39 @@ main {
   background: linear-gradient(135deg, #fffdf8 0%, #f9f3e9 50%, #fef5f0 100%);
   position: relative;
   overflow: hidden;
+}
+
+.animated-bg::before,
+.animated-bg::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  opacity: 0.34;
+}
+
+.animated-bg::before {
+  width: 260px;
+  height: 260px;
+  top: -42px;
+  left: -36px;
+  background:
+    radial-gradient(circle at 22% 24%, rgba(107, 147, 196, 0.38) 0 14%, transparent 15%),
+    radial-gradient(circle at 38% 38%, rgba(251, 242, 226, 0.96) 0 10%, rgba(212, 189, 146, 0.38) 11% 13%, transparent 14%),
+    radial-gradient(circle at 58% 30%, rgba(107, 147, 196, 0.27) 0 10%, transparent 11%),
+    radial-gradient(circle at 69% 48%, rgba(250, 239, 221, 0.9) 0 9%, rgba(183, 141, 74, 0.32) 10% 12%, transparent 13%);
+}
+
+.animated-bg::after {
+  width: 210px;
+  height: 210px;
+  right: -28px;
+  bottom: -24px;
+  background:
+    radial-gradient(circle at 24% 28%, rgba(107, 147, 196, 0.32) 0 13%, transparent 14%),
+    radial-gradient(circle at 50% 44%, rgba(251, 242, 226, 0.95) 0 10%, rgba(212, 189, 146, 0.35) 11% 13%, transparent 14%),
+    radial-gradient(circle at 72% 30%, rgba(183, 141, 74, 0.28) 0 8%, transparent 9%);
 }
 
 .bg-glow {
@@ -300,6 +350,18 @@ main {
   background: linear-gradient(130deg, transparent 20%, rgba(255, 255, 255, 0.42) 45%, transparent 70%);
   transform: translateX(-100%);
   animation: titleShimmer 6s ease-in-out infinite;
+}
+
+.hero-ceremony-title::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 8px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(183, 141, 74, 0.75), transparent);
+  z-index: 1;
+  opacity: 0.7;
 }
 
 .hero-ceremony-title span,
@@ -584,11 +646,61 @@ main {
     radial-gradient(circle at 8% 18%, rgba(183, 141, 74, 0.09), transparent 34%),
     radial-gradient(circle at 90% 72%, rgba(124, 17, 58, 0.08), transparent 28%),
     linear-gradient(145deg, #fffefd 0%, #fdf8f3 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.details-section::before,
+.details-section::after,
+.family-section::before,
+.venue-section::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.42;
+  border-radius: 50%;
+}
+
+.details-section::before {
+  width: 240px;
+  height: 240px;
+  top: -34px;
+  left: -34px;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(107, 147, 196, 0.4) 0 14%, transparent 15%),
+    radial-gradient(circle at 35% 36%, rgba(251, 242, 226, 0.98) 0 10%, rgba(212, 189, 146, 0.45) 11% 13%, transparent 14%),
+    radial-gradient(circle at 54% 26%, rgba(107, 147, 196, 0.28) 0 11%, transparent 12%),
+    radial-gradient(circle at 66% 44%, rgba(250, 239, 221, 0.93) 0 9%, rgba(183, 141, 74, 0.32) 10% 12%, transparent 13%),
+    radial-gradient(circle at 46% 58%, rgba(124, 17, 58, 0.11) 0 8%, transparent 9%);
+}
+
+.details-section::after {
+  width: 170px;
+  height: 170px;
+  right: 24px;
+  bottom: 22px;
+  background:
+    radial-gradient(circle at 24% 28%, rgba(107, 147, 196, 0.3) 0 12%, transparent 13%),
+    radial-gradient(circle at 46% 46%, rgba(251, 242, 226, 0.95) 0 10%, rgba(212, 189, 146, 0.34) 11% 13%, transparent 14%),
+    radial-gradient(circle at 68% 28%, rgba(183, 141, 74, 0.28) 0 8%, transparent 9%);
 }
 
 .section-header {
   text-align: center;
   margin-bottom: 60px;
+}
+
+.section-header::after {
+  content: '';
+  display: block;
+  width: 180px;
+  height: 12px;
+  margin: 16px auto 0;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(183, 141, 74, 0.9) 0 3px, transparent 4px),
+    linear-gradient(90deg, transparent 0%, rgba(183, 141, 74, 0.55) 20%, rgba(183, 141, 74, 0.55) 80%, transparent 100%);
 }
 
 .section-header h2 {
@@ -727,11 +839,110 @@ main {
   letter-spacing: 0.01em;
 }
 
+/* ===== DRESS SECTION ===== */
+.dress-section {
+  position: relative;
+  padding: 100px 6vw;
+  background: linear-gradient(145deg, #fffefd 0%, #f8f2e8 100%);
+  overflow: hidden;
+}
+
+.dress-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 24px;
+}
+
+.dress-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(183, 141, 74, 0.3);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 14px 34px rgba(35, 25, 66, 0.09);
+}
+
+.dress-card h3 {
+  margin: 0 0 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  color: var(--primary);
+}
+
+.dress-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.dress-list li {
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.palette-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(183, 141, 74, 0.22);
+  background: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.palette-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(35, 25, 66, 0.2);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.theme-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.theme-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(124, 17, 58, 0.1), rgba(183, 141, 74, 0.2));
+  border: 1px solid rgba(183, 141, 74, 0.3);
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 /* ===== FAMILY SECTION ===== */
 .family-section {
   position: relative;
   padding: 100px 6vw;
   background: linear-gradient(135deg, rgba(246, 231, 193, 0.3), rgba(255, 255, 255, 0.5));
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.family-section::before {
+  width: 190px;
+  height: 190px;
+  left: -28px;
+  bottom: -26px;
+  background:
+    radial-gradient(circle at 28% 30%, rgba(107, 147, 196, 0.3) 0 12%, transparent 13%),
+    radial-gradient(circle at 52% 46%, rgba(250, 242, 227, 0.95) 0 10%, rgba(212, 189, 146, 0.34) 11% 13%, transparent 14%),
+    radial-gradient(circle at 72% 30%, rgba(183, 141, 74, 0.24) 0 8%, transparent 9%);
 }
 
 .family-sides-grid {
@@ -927,6 +1138,26 @@ main {
   position: relative;
   padding: 100px 6vw;
   background: linear-gradient(135deg, rgba(35, 25, 66, 0.05), rgba(124, 17, 58, 0.05));
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.venue-section::after {
+  width: 200px;
+  height: 200px;
+  right: -24px;
+  top: -16px;
+  background:
+    radial-gradient(circle at 24% 30%, rgba(107, 147, 196, 0.3) 0 12%, transparent 13%),
+    radial-gradient(circle at 50% 46%, rgba(252, 244, 230, 0.95) 0 10%, rgba(212, 189, 146, 0.35) 11% 13%, transparent 14%),
+    radial-gradient(circle at 72% 27%, rgba(183, 141, 74, 0.28) 0 8%, transparent 9%);
+}
+
+.details-section > *,
+.family-section > *,
+.venue-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .venue-card {
@@ -1129,6 +1360,22 @@ main {
   margin: 0 auto;
 }
 
+.closing-bottom {
+  position: relative;
+  z-index: 1;
+  margin-top: 44px;
+  padding-top: 18px;
+}
+
+.closing-bottom::before {
+  content: '';
+  display: block;
+  width: min(460px, 86vw);
+  height: 1px;
+  margin: 0 auto 14px;
+  background: linear-gradient(90deg, transparent, rgba(255, 236, 194, 0.95), transparent);
+}
+
 .closing-quote {
   font-size: clamp(24px, 4vw, 40px);
   font-style: italic;
@@ -1153,8 +1400,52 @@ main {
   letter-spacing: 1px;
 }
 
+.closing-copyright {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 236, 194, 0.45);
+  background: rgba(255, 248, 242, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 22px rgba(0, 0, 0, 0.18);
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 244, 220, 0.96);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 18px 20px;
+  background: linear-gradient(120deg, #fff8f2 0%, #f6e7c1 100%);
+  border-top: 1px solid rgba(183, 141, 74, 0.28);
+  color: var(--secondary);
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  .animated-bg::before,
+  .animated-bg::after {
+    opacity: 0.2;
+    transform: scale(0.82);
+    transform-origin: center;
+  }
+
+  .details-section::before,
+  .details-section::after,
+  .family-section::before,
+  .venue-section::after {
+    opacity: 0.24;
+    transform: scale(0.75);
+    transform-origin: center;
+  }
+
   .luxury-nav {
     height: 70px;
     padding: 0 20px;
@@ -1222,6 +1513,7 @@ main {
   }
 
   .glass-cards-grid,
+  .dress-layout,
   .family-sides-grid,
   .timeline-grid {
     grid-template-columns: 1fr;
@@ -1229,6 +1521,12 @@ main {
 
   .section-header h2 {
     font-size: clamp(28px, 6vw, 40px);
+  }
+
+  .section-header::after {
+    width: 140px;
+    margin-top: 12px;
+    opacity: 0.4;
   }
 
   .venue-card {
@@ -1245,11 +1543,28 @@ main {
 
   .countdown-section,
   .details-section,
+  .dress-section,
   .family-section,
   .timeline-section,
   .venue-section,
   .closing-section {
     padding: 60px 20px;
+  }
+
+  .site-footer {
+    font-size: 12px;
+    padding: 14px 14px;
+  }
+
+  .closing-bottom {
+    margin-top: 32px;
+    padding-top: 14px;
+  }
+
+  .closing-copyright {
+    font-size: 10px;
+    letter-spacing: 0.11em;
+    padding: 9px 14px;
   }
 }
 
@@ -1290,6 +1605,10 @@ main {
 
   .nav-hashtag {
     font-size: 13px;
+  }
+
+  .nav-hashtag::after {
+    bottom: -4px;
   }
 
   .nav-links {
