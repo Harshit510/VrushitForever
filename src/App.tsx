@@ -28,7 +28,7 @@ const invitedBySides = [
     note: 'Rana Family',
     families: [
       'Late Shri Bhanabhai Icharam Rana & Late Smt. Pushpaben Bhanabhai Rana',
-      'Rupeshkumar Bhanabhai Rana & Manishaben Rupeshkumar Rana',
+      'Mr. Rupeshkumar Bhanabhai Rana & Mrs. Manishaben Rupeshkumar Rana',
       'Dax Rupeshkumar Rana',
     ],
   },
@@ -36,9 +36,9 @@ const invitedBySides = [
     side: "Harshit's Side",
     note: 'Rana Family',
     families: [
-      'Late Shri Shantilal Chunilal Rana & Late Smt. Nirahen Shantilal Rana',
-      'Bhikhubhai Shantilal Rana & Anitaben Bhikhubhai Rana',
-      'Parth Rajendra Rana & Mansi Parth Rana',
+      'Late Shri Shantilal Chunilal Rana & Late Smt. Niruben Shantilal Rana',
+      'Mr. Bhikhubhai Shantilal Rana & Mrs. Anitaben Bhikhubhai Rana',
+      'Mr. Parth Rajendra Rana & Mrs. Mansi Parth Rana',
     ],
   },
 ]
@@ -561,7 +561,7 @@ function App() {
           </motion.div>
         </motion.div>
         <div className="closing-bottom" aria-label="Copyright">
-          <p className="closing-copyright">✦ © 2026 Harshit Rana. All Rights Reserved. ✦</p>
+          <p className="closing-copyright">✦ © 2026 Harshit Rana. ✦</p>
         </div>
       </motion.section>
 
