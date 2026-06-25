@@ -1015,7 +1015,7 @@ main {
   }
 
   .hero-fullscreen {
-    margin-top: 50px;
+    margin-top: 82px;
   }
 
   .couple-name {
@@ -1099,6 +1099,10 @@ main {
 }
 
 @media (max-width: 480px) {
+  .hero-fullscreen {
+    margin-top: 92px;
+  }
+
   .luxury-nav {
     padding: 12px 16px;
     gap: 10px;
