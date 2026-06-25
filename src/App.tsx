@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import Tilt from 'react-parallax-tilt'
+import Countdown from 'react-countdown'
 import {
   CalendarDays,
   ChevronRight,
@@ -12,10 +15,11 @@ import {
   PartyPopper,
   Phone,
   Sparkles,
+  Volume2,
+  VolumeX,
 } from 'lucide-react'
 import './App.css'
 import proposalImage from './assets/img_1.png'
-
 
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
@@ -53,7 +57,7 @@ const ceremonyDetails = [
   },
 ]
 
-const experienceSteps = [
+const timelineEvents = [
   {
     icon: Sparkles,
     time: '5:00 PM',
@@ -80,268 +84,372 @@ const experienceSteps = [
   },
 ]
 
-const heroHighlights = [
-  {
-    icon: CalendarDays,
-    label: 'Date',
-    value: '24 Jul 2026',
-  },
-  {
-    icon: Clock,
-    label: 'Time',
-    value: '5:00 PM onwards',
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: 'Janki Resort',
-  },
-]
+// Countdown renderer
+const CountdownRenderer = ({ days, hours, minutes, seconds }: any) => (
+  <div className="countdown-grid">
+    <div className="countdown-item">
+      <motion.div
+        key={days}
+        initial={{ rotateX: -90 }}
+        animate={{ rotateX: 0 }}
+        className="countdown-value"
+      >
+        {String(days).padStart(2, '0')}
+      </motion.div>
+      <span>Days</span>
+    </div>
+    <div className="countdown-item">
+      <motion.div
+        key={hours}
+        initial={{ rotateX: -90 }}
+        animate={{ rotateX: 0 }}
+        className="countdown-value"
+      >
+        {String(hours).padStart(2, '0')}
+      </motion.div>
+      <span>Hours</span>
+    </div>
+    <div className="countdown-item">
+      <motion.div
+        key={minutes}
+        initial={{ rotateX: -90 }}
+        animate={{ rotateX: 0 }}
+        className="countdown-value"
+      >
+        {String(minutes).padStart(2, '0')}
+      </motion.div>
+      <span>Minutes</span>
+    </div>
+    <div className="countdown-item">
+      <motion.div
+        key={seconds}
+        initial={{ rotateX: -90 }}
+        animate={{ rotateX: 0 }}
+        className="countdown-value"
+      >
+        {String(seconds).padStart(2, '0')}
+      </motion.div>
+      <span>Seconds</span>
+    </div>
+  </div>
+)
+
+function FloatingHearts() {
+  const [hearts, setHearts] = useState<number[]>([])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHearts((prev) => [...prev, Date.now()])
+    }, 800)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <>
+      {hearts.map((id) => (
+        <motion.div
+          key={id}
+          className="floating-heart"
+          initial={{ y: 0, opacity: 1, x: Math.random() * 100 - 50 }}
+          animate={{ y: -400, opacity: 0 }}
+          transition={{ duration: 4 }}
+          onAnimationComplete={() => setHearts((prev) => prev.filter((h) => h !== id))}
+        >
+          ❤️
+        </motion.div>
+      ))}
+    </>
+  )
+}
 
 function App() {
-  const [activeDetail, setActiveDetail] = useState(0)
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeEvent, setActiveEvent] = useState(0)
+  const [isMusicOn, setIsMusicOn] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-  const CurrentIcon = ceremonyDetails[activeDetail].icon
-  const StepIcon = experienceSteps[activeStep].icon
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      })
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const toggleMusic = () => {
+    setIsMusicOn(!isMusicOn)
+    if (audioRef.current) {
+      if (isMusicOn) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.volume = 0.3
+        audioRef.current.play()
+      }
+    }
+  }
 
   return (
     <main>
-      <nav className="topbar" aria-label="Main navigation">
-        <a className="brand" href="#home" aria-label="Engagement home">
-          <Diamond size={22} />
-          Harshit & Vrushika
-        </a>
+      <audio
+        ref={audioRef}
+        src="https://assets.mixkit.co/active_storage/musics/540-84d-instrumental.mp3"
+        loop
+      />
+
+      <nav className="luxury-nav" aria-label="Main navigation">
+        <motion.a className="nav-brand" href="#home" aria-label="Engagement home">
+          <Diamond size={20} />
+          <span>H ❤ V</span>
+        </motion.a>
         <div className="nav-links">
           <a href="#details">Details</a>
           <a href="#experience">Experience</a>
           <a href="#venue">Venue</a>
         </div>
+        <motion.button
+          className="music-toggle"
+          onClick={toggleMusic}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isMusicOn ? <Volume2 size={20} /> : <VolumeX size={20} />}
+        </motion.button>
       </nav>
 
-      <section className="hero-section" id="home">
-        <div className="hero-copy">
-          <div className="hero-intro-row">
-            <div className="hero-badge hero-hashtag">
-              <Sparkles size={16} />
-              <span>#VrushitForever</span>
-            </div>
-            <div className="hero-live-pill" aria-label="Celebration status">
-              <span className="pulse-dot" />
-              Celebrations Begin Soon
-            </div>
+      <section className="hero-fullscreen" id="home">
+        <div className="hero-background">
+          <div className="animated-bg">
+            <div className="bg-glow glow-1" />
+            <div className="bg-glow glow-2" />
+            <div className="bg-glow glow-3" />
+            <div className="noise-texture" />
           </div>
-          <p className="ceremony-eyebrow">Engagement ceremony</p>
-          <h1>
-            <span>Vrushika & Harshit</span>
-            <strong>Forever Begins</strong>
-          </h1>
-          <div className="promise-strip" aria-label="Ceremony theme">
-            <span>The Promise Ceremony</span>
-            <span>An Evening of Promises</span>
-          </div>
-          <p className="couple-names">
-            Dr. Vrushika Rana <span>&</span> Harshit Rana
-          </p>
-          <div className="hero-story-grid">
-            <div className="hero-text">
-              <span className="hero-text-mark">Where our love story becomes ever after.</span>
-              <p>
-                Join us for a joyful evening of couple entry, games, activities,
-                dances, dinner, and blessings as two families celebrate the promise
-                of forever.
-              </p>
-            </div>
-            <aside className="hero-spotlight" aria-label="Ceremony spotlight">
-              <p>Promise Meter</p>
-              <h3>100% Forever Mood</h3>
-              <span>Elegant rituals, joyful games, dance, dinner, and endless blessings.</span>
-            </aside>
-          </div>
-          <div className="hero-actions">
-            <a className="primary-action" href="#details">
-              View Ceremony Details <ChevronRight size={18} />
-            </a>
-            <a className="secondary-action" href={mapLink} target="_blank" rel="noreferrer">
-              <Navigation size={18} /> Open Venue Map
-            </a>
-          </div>
-          <div className="hero-highlights" aria-label="Ceremony highlights quick view">
-            {heroHighlights.map((item) => {
-              const Icon = item.icon
-              return (
-                <div className="hero-highlight" key={item.label}>
-                  <Icon size={18} />
-                  <div>
-                    <span>{item.label}</span>
-                    <strong>{item.value}</strong>
-                  </div>
+
+          <FloatingHearts />
+        </div>
+
+        <div className="hero-content">
+          <motion.div
+            className="couple-name-section"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 1 }}
+          >
+            <motion.h1
+              className="couple-name"
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Harshit
+            </motion.h1>
+
+            <motion.div
+              className="heart-divider"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              ❤
+            </motion.div>
+
+            <motion.h1
+              className="couple-name"
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              Vrushika
+            </motion.h1>
+          </motion.div>
+
+          <motion.p
+            className="tagline"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            Forever Begins
+          </motion.p>
+
+          <motion.div
+            className="date-badge"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            24 July 2026
+          </motion.div>
+
+          <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.04}>
+            <motion.div
+              className="proposal-container"
+              style={{
+                x: mousePosition.x * 0.3,
+                y: mousePosition.y * 0.3,
+              }}
+            >
+              <div className="image-frame">
+                <img src={proposalImage} alt="Harshit & Vrushika" />
+                <div className="frame-glow" />
+                <div className="sparkle sparkle-1" />
+                <div className="sparkle sparkle-2" />
+                <div className="sparkle sparkle-3" />
+              </div>
+            </motion.div>
+          </Tilt>
+
+          <motion.div
+            className="scroll-indicator"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span>Scroll to Explore</span>
+            <ChevronRight size={20} style={{ transform: 'rotate(90deg)' }} />
+          </motion.div>
+        </div>
+
+        <div className="couple-initials-watermark">H ❤ V</div>
+      </section>
+
+
+      <motion.section className="countdown-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="countdown-container">
+          <h2>Countdown to Forever</h2>
+          <Countdown date={new Date('2026-07-24T17:00:00').getTime()} renderer={CountdownRenderer} />
+        </div>
+      </motion.section>
+
+      <motion.section className="details-section" id="details" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Ceremony Details</h2>
+          <p>Every moment, perfectly planned</p>
+        </div>
+
+        <div className="glass-cards-grid">
+          {ceremonyDetails.map((detail, index) => {
+            const Icon = detail.icon
+            return (
+              <motion.div
+                key={detail.label}
+                className="glass-card"
+                initial={{ y: 30, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -8, boxShadow: '0 40px 60px rgba(201, 154, 61, 0.3)' }}
+              >
+                <div className="card-icon">
+                  <Icon size={32} />
                 </div>
-              )
-            })}
-          </div>
-          <div className="hero-meta" aria-label="Ceremony highlights">
-            <div>
-              <CalendarDays size={19} />
-              <span>July 24, 2026</span>
-            </div>
-            <div>
-              <Clock size={19} />
-              <span>5:00 PM onwards</span>
-            </div>
-            <div>
-              <MapPin size={19} />
-              <span>Janki Resort</span>
-            </div>
-          </div>
+                <h3>{detail.label}</h3>
+                <p className="card-title">{detail.title}</p>
+                <span className="card-note">{detail.note}</span>
+              </motion.div>
+            )
+          })}
+        </div>
+      </motion.section>
+
+      <motion.section className="family-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Invited With Love</h2>
+          <p>By the Rana family</p>
         </div>
 
-        <div className="hero-art" aria-hidden="true">
-          <div className="hero-glow hero-glow-one" />
-          <div className="hero-glow hero-glow-two" />
-          <div className="hero-ring hero-ring-one" />
-          <div className="hero-ring hero-ring-two" />
-          <div className="hero-date-card">
-            <span>July</span>
-            <strong>24</strong>
-            <span>2026</span>
-          </div>
-          <div className="proposal-scene">
-            <div className="frame-corner corner-one" />
-            <div className="frame-corner corner-two" />
-            <div className="frame-corner corner-three" />
-            <div className="frame-corner corner-four" />
-            <img className="proposal-image" src={proposalImage} alt="" />
-          </div>
-          <div className="hashtag-pill">#VRUSHITFOREVER</div>
-        </div>
-      </section>
-
-      <section className="details-section" id="details">
-        <div className="section-heading centered">
-          <p className="section-kicker">Tap a detail</p>
-          <h2>Engagement ceremony details from the invitation.</h2>
-        </div>
-
-        <div className="interactive-panel">
-          <div className="detail-tabs" role="tablist" aria-label="Ceremony details">
-            {ceremonyDetails.map((detail, index) => {
-              const Icon = detail.icon
-              return (
-                <button
-                  className={activeDetail === index ? 'detail-tab active' : 'detail-tab'}
-                  key={detail.label}
-                  onClick={() => setActiveDetail(index)}
-                  type="button"
-                  aria-selected={activeDetail === index}
-                >
-                  <Icon size={20} />
-                  <span>{detail.label}</span>
-                </button>
-              )
-            })}
-          </div>
-
-          <div className="detail-reveal">
-            <div className="reveal-icon">
-              <CurrentIcon size={34} />
-            </div>
-            <p>{ceremonyDetails[activeDetail].label}</p>
-            <h3>{ceremonyDetails[activeDetail].title}</h3>
-            <span>{ceremonyDetails[activeDetail].note}</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="story-band">
-        <div className="section-heading">
-          <p className="section-kicker">The vibe</p>
-          <h2>#VRUSHITFOREVER, invited with love by the Rana family.</h2>
-        </div>
-        <div className="blessing-list">
-          {invitedBy.map((host) => (
-            <div className="blessing-item" key={host}>
-              <Heart size={20} />
-              {host}
-            </div>
+        <div className="family-cards">
+          {invitedBy.map((host, index) => (
+            <motion.div
+              key={host}
+              className="family-card"
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ delay: index * 0.15 }}
+            >
+              <Heart size={24} />
+              <p>{host}</p>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="program-section" id="experience">
-        <div className="section-heading centered">
-          <p className="section-kicker">Program schedule</p>
-          <h2>Click each moment to preview the ceremony flow.</h2>
+      <motion.section className="timeline-section" id="experience" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Experience Timeline</h2>
+          <p>A journey of moments</p>
         </div>
 
-        <div className="experience-board">
-          <div className="moment-list">
-            {experienceSteps.map((step, index) => {
-              const Icon = step.icon
-              return (
-                <button
-                  className={activeStep === index ? 'moment-card active' : 'moment-card'}
-                  key={step.title}
-                  onClick={() => setActiveStep(index)}
-                  type="button"
-                >
-                  <Icon size={22} />
-                  <span>{step.time}</span>
-                  <strong>{step.title}</strong>
-                </button>
-              )
-            })}
-          </div>
+        <div className="timeline-grid">
+          {timelineEvents.map((event, index) => {
+            const Icon = event.icon
+            return (
+              <motion.div
+                key={event.title}
+                className={`timeline-card ${activeEvent === index ? 'active' : ''}`}
+                onClick={() => setActiveEvent(index)}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="timeline-icon">
+                  <Icon size={28} />
+                </div>
+                <div className="timeline-content">
+                  <span className="timeline-time">{event.time}</span>
+                  <h3>{event.title}</h3>
+                  <p>{event.text}</p>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </motion.section>
 
-          <div className="moment-preview">
-            <div className="preview-orbit">
-              <StepIcon size={42} />
+      <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Venue</h2>
+          <p>Janki Resort, Vaghaldhara</p>
+        </div>
+
+        <motion.div className="venue-card" whileHover={{ scale: 1.02 }}>
+          <div className="venue-info">
+            <div>
+              <h3>Janki Resort</h3>
+              <p>NH 48, near Kharera River</p>
+              <p>Vaghaldhara, Gujarat 396375</p>
+              <div className="venue-contact">
+                <Phone size={18} />
+                <span>+91 97258 43015 (Bhikhubhai Rana)</span>
+              </div>
             </div>
-            <span>{experienceSteps[activeStep].time}</span>
-            <h3>{experienceSteps[activeStep].title}</h3>
-            <p>{experienceSteps[activeStep].text}</p>
+            <motion.a
+              href={mapLink}
+              target="_blank"
+              rel="noreferrer"
+              className="primary-button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Navigation size={18} />
+              Open Map
+            </motion.a>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className="cake-section">
-        <div className="cake-art" aria-hidden="true">
-          <div className="cake-top">
-            <Heart size={22} />
-          </div>
-          <div className="cake-tier tier-one" />
-          <div className="cake-tier tier-two" />
-          <div className="cake-tier tier-three" />
-        </div>
-        <div>
-          <p className="section-kicker">Dinner and wishes</p>
-          <h2>Stay for dances, dinner, music, and the little moments after the games.</h2>
-          <p>
-            The evening is designed to feel elegant, playful, and personal, with
-            activities for the couple, cousins, friends, family, and every guest.
-          </p>
-        </div>
-      </section>
-
-      <section className="venue-section" id="venue">
-        <div className="venue-card">
-          <div>
-            <p className="section-kicker">Venue</p>
-            <h2>Janki Resort, Vaghaldhara.</h2>
-            <p>
-              NH 48, near Kharera River, Vaghaldhara, Gujarat 396375. For help,
-              contact Bhikhubhai Rana at +91 97258 43015.
-            </p>
-          </div>
-          <a className="primary-action" href={mapLink} target="_blank" rel="noreferrer">
-            <Navigation size={18} /> Open Google Maps
-          </a>
-        </div>
-        <div className="footer-note">
-          <Diamond size={20} />
-          #VRUSHITFOREVER
-        </div>
-      </section>
+      <motion.section className="closing-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.div className="closing-content" initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+          <p className="closing-quote">"Every love story is beautiful, but ours is our favourite."</p>
+          <h2>Harshit ❤ Vrushika</h2>
+          <p className="closing-text">See You Soon</p>
+          <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+            ✨
+          </motion.div>
+        </motion.div>
+      </motion.section>
     </main>
   )
 }
