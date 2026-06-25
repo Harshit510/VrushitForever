@@ -1483,6 +1483,264 @@ h3 {
   }
 }
 
+/* Enhanced landing experience */
+:root {
+  --display-font: 'Sora', 'Segoe UI', sans-serif;
+  --text-font: 'Manrope', 'Segoe UI', sans-serif;
+}
+
+main {
+  font-family: var(--text-font);
+}
+
+.brand,
+h1,
+h2,
+h3,
+.couple-names,
+.hero-text-mark,
+.hero-live-pill,
+.hero-highlight strong {
+  font-family: var(--display-font);
+}
+
+.hero-section {
+  isolation: isolate;
+}
+
+.hero-intro-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.hero-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  border: 1px solid rgba(37, 38, 83, 0.16);
+  border-radius: 999px;
+  padding: 0 14px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.85), rgba(217, 238, 248, 0.72));
+  color: var(--plum);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  animation: riseIn 760ms ease 120ms both;
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00b67a;
+  box-shadow: 0 0 0 0 rgba(0, 182, 122, 0.45);
+  animation: pulseGlow 2s ease infinite;
+}
+
+.hero-story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.56fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.hero-story-grid .hero-text {
+  margin-bottom: 0;
+}
+
+.hero-spotlight {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid rgba(201, 154, 61, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(201, 154, 61, 0.26), transparent 44%),
+    linear-gradient(140deg, rgba(37, 38, 83, 0.95), rgba(31, 119, 130, 0.9));
+  color: #f6f7ff;
+  box-shadow: 0 18px 46px rgba(37, 38, 83, 0.25);
+  animation: riseIn 760ms ease 440ms both;
+}
+
+.hero-spotlight p,
+.hero-spotlight span,
+.hero-spotlight h3 {
+  margin: 0;
+  color: inherit;
+}
+
+.hero-spotlight p {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.86;
+}
+
+.hero-spotlight h3 {
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.1;
+}
+
+.hero-spotlight span {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 760px;
+  margin-top: 18px;
+  animation: riseIn 760ms ease 500ms both;
+}
+
+.hero-highlight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(201, 154, 61, 0.26);
+  border-radius: 10px;
+  padding: 11px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 28px rgba(37, 38, 83, 0.08);
+}
+
+.hero-highlight svg {
+  color: var(--teal);
+}
+
+.hero-highlight span,
+.hero-highlight strong {
+  display: block;
+  line-height: 1.15;
+}
+
+.hero-highlight span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero-highlight strong {
+  margin-top: 3px;
+  color: var(--plum);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.hero-meta {
+  margin-top: 14px;
+}
+
+.hero-art {
+  perspective: 1200px;
+}
+
+.hero-glow,
+.hero-ring {
+  position: absolute;
+  pointer-events: none;
+}
+
+.hero-glow {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(3px);
+  opacity: 0.6;
+}
+
+.hero-glow-one {
+  top: 16%;
+  left: 7%;
+  background: radial-gradient(circle, rgba(31, 119, 130, 0.28), transparent 70%);
+  animation: floatSoft 5.6s ease-in-out infinite;
+}
+
+.hero-glow-two {
+  right: 0;
+  bottom: 12%;
+  background: radial-gradient(circle, rgba(159, 35, 72, 0.28), transparent 70%);
+  animation: floatSoft 6.4s ease-in-out 600ms infinite;
+}
+
+.hero-ring {
+  border-radius: 50%;
+  border: 1px dashed rgba(201, 154, 61, 0.36);
+}
+
+.hero-ring-one {
+  top: 7%;
+  right: 9%;
+  width: 110px;
+  height: 110px;
+  animation: spin 16s linear infinite;
+}
+
+.hero-ring-two {
+  left: 10%;
+  bottom: 4%;
+  width: 78px;
+  height: 78px;
+  animation: spin 11s linear infinite reverse;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 182, 122, 0.44);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 182, 122, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 182, 122, 0);
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-highlights {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-intro-row {
+    align-items: stretch;
+  }
+
+  .hero-live-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-spotlight {
+    padding: 14px;
+  }
+
+  .hero-highlight {
+    min-height: 56px;
+  }
+
+  .hero-glow,
+  .hero-ring {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

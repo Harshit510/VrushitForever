@@ -80,6 +80,24 @@ const experienceSteps = [
   },
 ]
 
+const heroHighlights = [
+  {
+    icon: CalendarDays,
+    label: 'Date',
+    value: '24 Jul 2026',
+  },
+  {
+    icon: Clock,
+    label: 'Time',
+    value: '5:00 PM onwards',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Janki Resort',
+  },
+]
+
 function App() {
   const [activeDetail, setActiveDetail] = useState(0)
   const [activeStep, setActiveStep] = useState(1)
@@ -103,9 +121,15 @@ function App() {
 
       <section className="hero-section" id="home">
         <div className="hero-copy">
-          <div className="hero-badge hero-hashtag">
-            <Sparkles size={16} />
-            <span>#VrushitForever</span>
+          <div className="hero-intro-row">
+            <div className="hero-badge hero-hashtag">
+              <Sparkles size={16} />
+              <span>#VrushitForever</span>
+            </div>
+            <div className="hero-live-pill" aria-label="Celebration status">
+              <span className="pulse-dot" />
+              Celebrations Begin Soon
+            </div>
           </div>
           <p className="ceremony-eyebrow">Engagement ceremony</p>
           <h1>
@@ -119,13 +143,20 @@ function App() {
           <p className="couple-names">
             Dr. Vrushika Rana <span>&</span> Harshit Rana
           </p>
-          <div className="hero-text">
-            <span className="hero-text-mark">Where our love story becomes ever after.</span>
-            <p>
-              Join us for a joyful evening of couple entry, games, activities,
-              dances, dinner, and blessings as two families celebrate the promise
-              of forever.
-            </p>
+          <div className="hero-story-grid">
+            <div className="hero-text">
+              <span className="hero-text-mark">Where our love story becomes ever after.</span>
+              <p>
+                Join us for a joyful evening of couple entry, games, activities,
+                dances, dinner, and blessings as two families celebrate the promise
+                of forever.
+              </p>
+            </div>
+            <aside className="hero-spotlight" aria-label="Ceremony spotlight">
+              <p>Promise Meter</p>
+              <h3>100% Forever Mood</h3>
+              <span>Elegant rituals, joyful games, dance, dinner, and endless blessings.</span>
+            </aside>
           </div>
           <div className="hero-actions">
             <a className="primary-action" href="#details">
@@ -134,6 +165,20 @@ function App() {
             <a className="secondary-action" href={mapLink} target="_blank" rel="noreferrer">
               <Navigation size={18} /> Open Venue Map
             </a>
+          </div>
+          <div className="hero-highlights" aria-label="Ceremony highlights quick view">
+            {heroHighlights.map((item) => {
+              const Icon = item.icon
+              return (
+                <div className="hero-highlight" key={item.label}>
+                  <Icon size={18} />
+                  <div>
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </div>
+                </div>
+              )
+            })}
           </div>
           <div className="hero-meta" aria-label="Ceremony highlights">
             <div>
@@ -152,6 +197,10 @@ function App() {
         </div>
 
         <div className="hero-art" aria-hidden="true">
+          <div className="hero-glow hero-glow-one" />
+          <div className="hero-glow hero-glow-two" />
+          <div className="hero-ring hero-ring-one" />
+          <div className="hero-ring hero-ring-two" />
           <div className="hero-date-card">
             <span>July</span>
             <strong>24</strong>
