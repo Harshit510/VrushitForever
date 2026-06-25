@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import './App.css'
 import proposalImage from './assets/img_1.png'
+import headerLogo from './assets/logo-transparent.png'
 
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
@@ -59,7 +60,7 @@ const timelineEvents = [
     icon: Sparkles,
     time: '5:00 PM',
     title: 'Couple Entry',
-    text: 'Harshit and Dr. Vrushika make their entry as the evening opens with family cheers.',
+    text: 'Harshit and Vrushika make their entry as the evening opens with family cheers.',
   },
   {
     icon: PartyPopper,
@@ -180,11 +181,7 @@ function App() {
       <nav className="luxury-nav" aria-label="Main navigation">
         <motion.a className="nav-brand" href="#home" aria-label="Engagement home">
           <span className="logo-mark" aria-hidden="true">
-            <span className="logo-monogram">
-              <span className="logo-letter">H</span>
-              <span className="logo-amp">&amp;</span>
-              <span className="logo-letter">V</span>
-            </span>
+            <img className="logo-image" src={headerLogo} alt="H and V logo" />
           </span>
         </motion.a>
         <div className="nav-links">
@@ -208,6 +205,16 @@ function App() {
         </div>
 
         <div className="hero-content">
+          <motion.div
+            className="hero-ceremony-title"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+          >
+            <span>The Promise Of Forever</span>
+            <p>Engagement Ceremony</p>
+          </motion.div>
+
           <motion.div
             className="couple-name-section"
             initial={{ opacity: 0 }}
@@ -282,7 +289,7 @@ function App() {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <span>Scroll to Explore</span>
+            
             <ChevronRight size={20} style={{ transform: 'rotate(90deg)' }} />
           </motion.div>
         </div>
@@ -391,7 +398,8 @@ function App() {
 
         <motion.div className="venue-card" whileHover={{ scale: 1.02 }}>
           <div className="venue-info">
-            <div>
+            <div className="venue-main">
+              <span className="venue-chip">Celebration Destination</span>
               <h3>Janki Resort</h3>
               <p>NH 48, near Kharera River</p>
               <p>Vaghaldhara, Gujarat 396375</p>
@@ -400,17 +408,25 @@ function App() {
                 <span>+91 97258 43015 (Bhikhubhai Rana)</span>
               </div>
             </div>
-            <motion.a
-              href={mapLink}
-              target="_blank"
-              rel="noreferrer"
-              className="primary-button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Navigation size={18} />
-              Open Map
-            </motion.a>
+            <div className="venue-side-panel">
+              <p>How It Feels</p>
+              <h4>Elegant, warm, and full of blessings</h4>
+              <span>
+                Arrive a little early, meet both families, and enjoy a joyful
+                evening of rituals, games, dance, and dinner.
+              </span>
+              <motion.a
+                href={mapLink}
+                target="_blank"
+                rel="noreferrer"
+                className="primary-button"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Navigation size={18} />
+                Open Map
+              </motion.a>
+            </div>
           </div>
         </motion.div>
       </motion.section>
