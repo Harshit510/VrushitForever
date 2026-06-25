@@ -103,19 +103,30 @@ function App() {
 
       <section className="hero-section" id="home">
         <div className="hero-copy">
-          <div className="hero-badge">
+          <div className="hero-badge hero-hashtag">
             <Sparkles size={16} />
-            <span>Ring ceremony invitation</span>
+            <span>#VrushitForever</span>
           </div>
-          <h1>Where our love story becomes ever after.</h1>
+          <p className="ceremony-eyebrow">Engagement ceremony</p>
+          <h1>
+            <span>Vrushika & Harshit</span>
+            <strong>Forever Begins</strong>
+          </h1>
+          <div className="promise-strip" aria-label="Ceremony theme">
+            <span>The Promise Ceremony</span>
+            <span>An Evening of Promises</span>
+          </div>
           <p className="couple-names">
-            Harshit Rana <span>&</span> Dr. Vrushika Rana
+            Dr. Vrushika Rana <span>&</span> Harshit Rana
           </p>
-          <p className="hero-text">
-            Join us for the engagement ceremony of Harshit Rana and Dr. Vrushika
-            Rana, a joyful evening of couple entry, games, activities, dances,
-            dinner, and blessings.
-          </p>
+          <div className="hero-text">
+            <span className="hero-text-mark">Where our love story becomes ever after.</span>
+            <p>
+              Join us for a joyful evening of couple entry, games, activities,
+              dances, dinner, and blessings as two families celebrate the promise
+              of forever.
+            </p>
+          </div>
           <div className="hero-actions">
             <a className="primary-action" href="#details">
               View Ceremony Details <ChevronRight size={18} />
