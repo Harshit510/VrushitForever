@@ -14,8 +14,8 @@ import {
   Sparkles,
 } from 'lucide-react'
 import './App.css'
+import proposalImage from './assets/img_1.png'
 
-const proposalImage = '/src/assets/img_1.png'
 
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
