@@ -15,6 +15,8 @@ import {
 } from 'lucide-react'
 import './App.css'
 
+const proposalImage = '/src/assets/img_1.png?v=2'
+
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
 
@@ -101,7 +103,10 @@ function App() {
 
       <section className="hero-section" id="home">
         <div className="hero-copy">
-          <p className="eyebrow">Ring ceremony invitation</p>
+          <div className="hero-badge">
+            <Sparkles size={16} />
+            <span>Ring ceremony invitation</span>
+          </div>
           <h1>Where our love story becomes ever after.</h1>
           <p className="couple-names">
             Harshit Rana <span>&</span> Dr. Vrushika Rana
@@ -119,35 +124,36 @@ function App() {
               <Navigation size={18} /> Open Venue Map
             </a>
           </div>
+          <div className="hero-meta" aria-label="Ceremony highlights">
+            <div>
+              <CalendarDays size={19} />
+              <span>July 24, 2026</span>
+            </div>
+            <div>
+              <Clock size={19} />
+              <span>5:00 PM onwards</span>
+            </div>
+            <div>
+              <MapPin size={19} />
+              <span>Janki Resort</span>
+            </div>
+          </div>
         </div>
 
         <div className="hero-art" aria-hidden="true">
-          <div className="proposal-scene">
-            <div className="ambient ambient-one" />
-            <div className="ambient ambient-two" />
-            <div className="moon-arch" />
-            <div className="cartoon-person girl">
-              <div className="hair" />
-              <div className="head" />
-              <div className="body" />
-              <div className="dress" />
-              <div className="arm arm-left" />
-              <div className="arm arm-right" />
-            </div>
-            <div className="cartoon-person boy">
-              <div className="hair" />
-              <div className="head" />
-              <div className="body" />
-              <div className="leg kneel" />
-              <div className="arm ring-arm" />
-            </div>
-            <div className="ring-box">
-              <span />
-            </div>
-            <div className="sparkle sparkle-one" />
-            <div className="sparkle sparkle-two" />
-            <div className="sparkle sparkle-three" />
+          <div className="hero-date-card">
+            <span>July</span>
+            <strong>24</strong>
+            <span>2026</span>
           </div>
+          <div className="proposal-scene">
+            <div className="frame-corner corner-one" />
+            <div className="frame-corner corner-two" />
+            <div className="frame-corner corner-three" />
+            <div className="frame-corner corner-four" />
+            <img className="proposal-image" src={proposalImage} alt="" />
+          </div>
+          <div className="hashtag-pill">#VRUSHITFOREVER</div>
         </div>
       </section>
 
