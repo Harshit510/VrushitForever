@@ -1367,6 +1367,7 @@ main {
   padding-top: 18px;
 }
 
+
 .closing-bottom::before {
   content: '';
   display: block;

@@ -549,6 +549,7 @@ function App() {
           </div>
         </motion.div>
       </motion.section>
+      
 
       <motion.section className="closing-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <motion.div className="closing-content" initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
