@@ -48,24 +48,32 @@ const ceremonyDetails = [
     icon: CalendarDays,
     label: 'Date',
     title: 'Friday, 24 July 2026',
+    highlights: ['Engagement Ceremony Day', 'A promise of forever'],
     note: 'A warm engagement evening where our love story becomes ever after.',
   },
   {
     icon: Clock,
     label: 'Time',
     title: '5:00 PM onwards',
+    highlights: ['Evening celebration', 'Arrive a little early'],
     note: 'Arrive a little early for greetings before the couple entry begins.',
   },
   {
     icon: MapPin,
     label: 'Venue',
     title: 'Janki Resort',
+    highlights: ['NH 48, near Kharera River', 'Vaghaldhara, Gujarat 396375'],
     note: 'NH 48, near Kharera River, Vaghaldhara, Gujarat 396375.',
   },
   {
     icon: Phone,
     label: 'Contact',
-    title: 'Harshit Rana: +91 8866547230 | Dax Rana: +91 6353139644',
+    title: 'Contact Persons',
+    highlights: ['For arrivals and coordination'],
+    contacts: [
+      { name: 'Harshit Rana', phone: '+91 8866547230' },
+      { name: 'Dax Rana', phone: '+91 6353139644' },
+    ],
     note: 'For arrivals and ceremony coordination.',
   },
 ]
@@ -329,10 +337,12 @@ function App() {
         <div className="glass-cards-grid">
           {ceremonyDetails.map((detail, index) => {
             const Icon = detail.icon
+            const hasContacts = Array.isArray((detail as any).contacts)
+            const hasHighlights = Array.isArray((detail as any).highlights)
             return (
               <motion.div
                 key={detail.label}
-                className="glass-card"
+                className={`glass-card ${hasContacts ? 'contact-glass-card' : ''}`}
                 initial={{ y: 30, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
@@ -343,6 +353,25 @@ function App() {
                 </div>
                 <h3>{detail.label}</h3>
                 <p className="card-title">{detail.title}</p>
+                {hasHighlights && (
+                  <div className="card-highlights">
+                    {(detail as any).highlights.map((item: string) => (
+                      <span key={item} className="card-pill">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {hasContacts && (
+                  <div className="card-contact-list">
+                    {(detail as any).contacts.map((contact: { name: string; phone: string }) => (
+                      <div key={contact.phone} className="card-contact-row">
+                        <span className="card-contact-name">{contact.name}</span>
+                        <span className="card-contact-phone">{contact.phone}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <span className="card-note">{detail.note}</span>
               </motion.div>
             )
