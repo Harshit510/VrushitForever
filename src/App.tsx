@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import Countdown from 'react-countdown'
@@ -6,7 +6,6 @@ import {
   CalendarDays,
   ChevronRight,
   Clock,
-  Diamond,
   Gift,
   Heart,
   MapPin,
@@ -15,8 +14,6 @@ import {
   PartyPopper,
   Phone,
   Sparkles,
-  Volume2,
-  VolumeX,
 } from 'lucide-react'
 import './App.css'
 import proposalImage from './assets/img_1.png'
@@ -164,9 +161,7 @@ function FloatingHearts() {
 
 function App() {
   const [activeEvent, setActiveEvent] = useState(0)
-  const [isMusicOn, setIsMusicOn] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -180,44 +175,24 @@ function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  const toggleMusic = () => {
-    setIsMusicOn(!isMusicOn)
-    if (audioRef.current) {
-      if (isMusicOn) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.volume = 0.3
-        audioRef.current.play()
-      }
-    }
-  }
-
   return (
     <main>
-      <audio
-        ref={audioRef}
-        src="https://assets.mixkit.co/active_storage/musics/540-84d-instrumental.mp3"
-        loop
-      />
-
       <nav className="luxury-nav" aria-label="Main navigation">
         <motion.a className="nav-brand" href="#home" aria-label="Engagement home">
-          <Diamond size={20} />
-          <span>H ❤ V</span>
+          <span className="logo-mark" aria-hidden="true">
+            <span className="logo-monogram">
+              <span className="logo-letter">H</span>
+              <span className="logo-amp">&amp;</span>
+              <span className="logo-letter">V</span>
+            </span>
+          </span>
         </motion.a>
         <div className="nav-links">
           <a href="#details">Details</a>
           <a href="#experience">Experience</a>
           <a href="#venue">Venue</a>
         </div>
-        <motion.button
-          className="music-toggle"
-          onClick={toggleMusic}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {isMusicOn ? <Volume2 size={20} /> : <VolumeX size={20} />}
-        </motion.button>
+        <p className="nav-hashtag">#VrushitForever</p>
       </nav>
 
       <section className="hero-fullscreen" id="home">
@@ -245,15 +220,15 @@ function App() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Harshit
+              Harshit Rana
             </motion.h1>
 
             <motion.div
-              className="heart-divider"
+              className="ring-divider"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              ❤
+              💍
             </motion.div>
 
             <motion.h1
@@ -262,7 +237,7 @@ function App() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              Vrushika
+              Dr. Vrushika Rana
             </motion.h1>
           </motion.div>
 
