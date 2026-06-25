@@ -48,8 +48,9 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 6vw;
-  background: rgba(255, 253, 248, 0.7);
+  height: 76px;
+  padding: 0 6vw;
+  background: rgba(255, 253, 248, 0.92);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(183, 141, 74, 0.2);
 }
@@ -85,7 +86,7 @@ main {
 .logo-image {
   display: block;
   width: auto;
-  height: 58px;
+  height: 62px;
   object-fit: contain;
   mix-blend-mode: multiply;
   filter: contrast(1.08) saturate(1.05);
@@ -171,13 +172,16 @@ main {
 .hero-fullscreen {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: calc(100vh - 76px);
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  margin-top: 60px;
+  overflow: visible;
+  margin-top: 76px;
+  padding: 22px 0 48px;
+  scroll-margin-top: 86px;
 }
 
 .hero-background {
@@ -663,40 +667,93 @@ main {
   background: linear-gradient(135deg, rgba(246, 231, 193, 0.3), rgba(255, 255, 255, 0.5));
 }
 
-.family-cards {
+.family-sides-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-.family-card {
-  padding: 30px 25px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-left: 4px solid var(--accent);
-  border-radius: 12px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+.family-side-card {
+  position: relative;
+  padding: 28px 24px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(246, 231, 193, 0.5));
+  border: 1px solid rgba(183, 141, 74, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 16px 38px rgba(35, 25, 66, 0.11);
   transition: all 0.4s ease;
+  overflow: hidden;
 }
 
-.family-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 60px rgba(183, 141, 74, 0.2);
+.family-side-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.15), transparent 45%);
+  pointer-events: none;
 }
 
-.family-card svg {
+.family-side-card:hover {
+  box-shadow: 0 24px 56px rgba(183, 141, 74, 0.24);
+}
+
+.family-side-head {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(183, 141, 74, 0.22);
+}
+
+.family-side-head span {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(124, 17, 58, 0.1);
   color: var(--secondary);
-  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.family-card p {
-  font-size: 16px;
-  line-height: 1.7;
+.family-side-head p {
+  margin: 10px 0 0;
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.family-list {
+  display: grid;
+  gap: 12px;
+}
+
+.family-line {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: start;
+  gap: 10px;
+  padding: 12px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.family-line svg {
+  color: var(--secondary);
+  margin-top: 4px;
+}
+
+.family-line p {
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--text-dark);
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* ===== TIMELINE SECTION ===== */
@@ -806,22 +863,30 @@ main {
 }
 
 .venue-card {
-  max-width: 900px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 60px 40px;
+  padding: 36px;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(183, 141, 74, 0.4);
   border-radius: 24px;
   box-shadow: var(--shadow-deep);
+}
+
+.venue-info {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.9fr);
+  gap: 28px;
+  align-items: stretch;
 }
 
 .venue-main {
   position: relative;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(183, 141, 74, 0.24);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(246, 231, 193, 0.38));
+  box-shadow: 0 16px 34px rgba(35, 25, 66, 0.08);
 }
 
 .venue-chip {
@@ -857,7 +922,7 @@ main {
 
 .venue-contact {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   margin-top: 20px;
   padding-top: 20px;
@@ -865,6 +930,24 @@ main {
   color: var(--secondary);
   font-weight: 700;
   margin-bottom: 20px;
+}
+
+.venue-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.venue-contact-list p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.venue-contact-list span {
+  line-height: 1.35;
 }
 
 .venue-side-panel {
@@ -1006,7 +1089,8 @@ main {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .luxury-nav {
-    padding: 16px 20px;
+    height: 70px;
+    padding: 0 20px;
   }
 
   .nav-links {
@@ -1015,7 +1099,8 @@ main {
   }
 
   .hero-fullscreen {
-    margin-top: 82px;
+    margin-top: 70px;
+    scroll-margin-top: 78px;
   }
 
   .couple-name {
@@ -1070,7 +1155,7 @@ main {
   }
 
   .glass-cards-grid,
-  .family-cards,
+  .family-sides-grid,
   .timeline-grid {
     grid-template-columns: 1fr;
   }
@@ -1080,8 +1165,11 @@ main {
   }
 
   .venue-card {
-    grid-template-columns: 1fr;
     padding: 40px 25px;
+  }
+
+  .venue-info {
+    grid-template-columns: 1fr;
   }
 
   .venue-side-panel {
@@ -1100,11 +1188,13 @@ main {
 
 @media (max-width: 480px) {
   .hero-fullscreen {
-    margin-top: 92px;
+    margin-top: 66px;
+    scroll-margin-top: 74px;
   }
 
   .luxury-nav {
-    padding: 12px 16px;
+    height: 66px;
+    padding: 0 16px;
     gap: 10px;
   }
 
@@ -1117,7 +1207,7 @@ main {
   }
 
   .logo-image {
-    height: 44px;
+    height: 48px;
   }
 
   .logo-monogram {

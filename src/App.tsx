@@ -22,10 +22,25 @@ import headerLogo from './assets/logo-transparent.png'
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
 
-const invitedBy = [
-  'Late Shri Shantilal Chunilal Rana & Late Smt. Nirahen Shantilal Rana',
-  'Bhikhubhai Shantilal Rana & Anitaben Bhikhubhai Rana',
-  'Parth Rajendra Rana & Mansi Parth Rana',
+const invitedBySides = [
+  {
+    side: "Vrushika's Side",
+    note: 'Rana Family',
+    families: [
+      'Late Shri Bhanabhai Icharam Rana & Late Smt. Pushpaben Bhanabhai Rana',
+      'Rupeshkumar Bhanabhai Rana & Manishaben Rupeshkumar Rana',
+      'Dax Rupeshkumar Rana',
+    ],
+  },
+  {
+    side: "Harshit's Side",
+    note: 'Rana Family',
+    families: [
+      'Late Shri Shantilal Chunilal Rana & Late Smt. Nirahen Shantilal Rana',
+      'Bhikhubhai Shantilal Rana & Anitaben Bhikhubhai Rana',
+      'Parth Rajendra Rana & Mansi Parth Rana',
+    ],
+  },
 ]
 
 const ceremonyDetails = [
@@ -50,8 +65,8 @@ const ceremonyDetails = [
   {
     icon: Phone,
     label: 'Contact',
-    title: '+91 97258 43015',
-    note: 'Bhikhubhai Rana will help with arrival and ceremony guidance.',
+    title: 'Harshit Rana: +91 8866547230 | Dax Rana: +91 6353139644',
+    note: 'For arrivals and ceremony coordination.',
   },
 ]
 
@@ -71,7 +86,7 @@ const timelineEvents = [
   {
     icon: Gift,
     time: 'With friends',
-    title: 'Friend ni Game',
+    title: 'Friends Fiesta',
     text: 'A dedicated friends game brings playful moments, inside jokes, and loud celebration energy.',
   },
   {
@@ -335,28 +350,6 @@ function App() {
         </div>
       </motion.section>
 
-      <motion.section className="family-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-        <div className="section-header">
-          <h2>Invited With Love</h2>
-          <p>By the Rana family</p>
-        </div>
-
-        <div className="family-cards">
-          {invitedBy.map((host, index) => (
-            <motion.div
-              key={host}
-              className="family-card"
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ delay: index * 0.15 }}
-            >
-              <Heart size={24} />
-              <p>{host}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
       <motion.section className="timeline-section" id="experience" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Experience Timeline</h2>
@@ -390,6 +383,40 @@ function App() {
         </div>
       </motion.section>
 
+      <motion.section className="family-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Invited With Love</h2>
+          <p>Two families, one beautiful celebration</p>
+        </div>
+
+        <div className="family-sides-grid">
+          {invitedBySides.map((group, index) => (
+            <motion.div
+              key={group.side}
+              className="family-side-card"
+              initial={{ y: 22, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: index * 0.15 }}
+              whileHover={{ y: -8 }}
+            >
+              <div className="family-side-head">
+                <span>{group.side}</span>
+                <p>{group.note}</p>
+              </div>
+
+              <div className="family-list">
+                {group.families.map((host) => (
+                  <div key={host} className="family-line">
+                    <Heart size={16} />
+                    <p>{host}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
       <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Venue</h2>
@@ -405,7 +432,11 @@ function App() {
               <p>Vaghaldhara, Gujarat 396375</p>
               <div className="venue-contact">
                 <Phone size={18} />
-                <span>+91 97258 43015 (Bhikhubhai Rana)</span>
+                <div className="venue-contact-list">
+                  <p>Contact Persons</p>
+                  <span>Harshit Rana: +91 8866547230</span>
+                  <span>Dax Rana: +91 6353139644</span>
+                </div>
               </div>
             </div>
             <div className="venue-side-panel">
