@@ -59,8 +59,8 @@ const ceremonyDetails = [
     icon: Clock,
     label: 'Time',
     title: '5:00 PM onwards',
-    highlights: ['Evening celebration', 'Arrive a little early'],
-    note: 'Arrive a little early for greetings before the couple entry begins.',
+    highlights: ['Evening celebration', 'Arrive on time to meet'],
+    note: 'Arrive on time to meet and greet both families before the couple entry begins.',
   },
   {
     icon: MapPin,
@@ -898,7 +898,7 @@ function App() {
               <span className="venue-mood-rule" aria-hidden="true" />
             </div>
             <div className="venue-mood-right">
-              <p className="venue-mood-desc">Arrive a little early, meet both families, and enjoy a joyful evening of rituals, games, dance, and dinner.</p>
+              <p className="venue-mood-desc">Arrive on time to meet both families, and enjoy a joyful evening of rituals, games, dance, and dinner.</p>
               <div className="venue-mood-tags">
                 <span>✦ Rituals</span>
                 <span>✦ Games</span>
