@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion, type PanInfo } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import Countdown from 'react-countdown'
@@ -225,7 +225,9 @@ const cardVariants = {
 function App() {
   const [activeEvent, setActiveEvent] = useState(0)
   const [swipeDir, setSwipeDir] = useState(1)
+  const [activeDetailCard, setActiveDetailCard] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const detailsGridRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -248,6 +250,32 @@ function App() {
   const paginateTimeline = (direction: number) => {
     setSwipeDir(direction)
     setActiveEvent((current) => (current + direction + timelineLength) % timelineLength)
+  }
+
+  const handleDetailScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const grid = e.currentTarget
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.glass-card'))
+    if (!cards.length) return
+    const gridCenter = grid.scrollLeft + grid.clientWidth / 2
+    let closestIdx = 0
+    let closestDist = Infinity
+    cards.forEach((card, idx) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2
+      const dist = Math.abs(cardCenter - gridCenter)
+      if (dist < closestDist) { closestDist = dist; closestIdx = idx }
+    })
+    if (closestIdx !== activeDetailCard) setActiveDetailCard(closestIdx)
+  }
+
+  const scrollToDetailCard = (idx: number) => {
+    setActiveDetailCard(idx)
+    const grid = detailsGridRef.current
+    if (!grid) return
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.glass-card'))
+    const target = cards[idx]
+    if (!target) return
+    const targetLeft = target.offsetLeft - (grid.clientWidth - target.offsetWidth) / 2
+    grid.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' })
   }
 
   const handleTimelineDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -436,7 +464,33 @@ function App() {
           <p>Every moment, perfectly planned</p>
         </div>
 
-        <div className="glass-cards-grid">
+        <div className="detail-card-selector" role="tablist" aria-label="Ceremony detail cards">
+          {ceremonyDetails.map((detail, idx) => {
+            const Icon = detail.icon
+            const isActive = idx === activeDetailCard
+            return (
+              <motion.button
+                key={detail.label}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                className={`detail-chip detail-chip-${idx + 1}${isActive ? ' active' : ''}`}
+                onClick={() => scrollToDetailCard(idx)}
+                animate={isActive ? { scale: 1 } : { scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 360, damping: 22 }}
+              >
+                <Icon size={12} />
+                <span>{detail.label}</span>
+              </motion.button>
+            )
+          })}
+        </div>
+
+        <div
+          className="glass-cards-grid"
+          ref={detailsGridRef}
+          onScroll={handleDetailScroll}
+        >
           {ceremonyDetails.map((detail, index) => {
             const Icon = detail.icon
             const hasContacts = Array.isArray((detail as any).contacts)
@@ -444,12 +498,13 @@ function App() {
             return (
               <motion.div
                 key={detail.label}
-                className={`glass-card ${hasContacts ? 'contact-glass-card' : ''}`}
+                className={`glass-card glass-card-${index + 1} ${hasContacts ? 'contact-glass-card' : ''} ${index === activeDetailCard ? 'detail-active' : ''}`}
                 initial={{ y: 30, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8, boxShadow: '0 40px 60px rgba(201, 154, 61, 0.3)' }}
               >
+                <div className="card-accent-strip" aria-hidden="true" />
                 <div className="card-icon">
                   <Icon size={32} />
                 </div>
@@ -478,6 +533,18 @@ function App() {
               </motion.div>
             )
           })}
+        </div>
+
+        <div className="detail-progress" aria-label="Card progress indicator">
+          {ceremonyDetails.map((detail, idx) => (
+            <button
+              key={detail.label}
+              type="button"
+              className={`detail-dot${idx === activeDetailCard ? ' active' : ''}`}
+              onClick={() => scrollToDetailCard(idx)}
+              aria-label={`View ${detail.label} card`}
+            />
+          ))}
         </div>
       </motion.section>
 
