@@ -647,84 +647,6 @@ function App() {
         </div>
       </motion.section>
 
-      <motion.section className="dress-section" id="dress" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-        <div className="section-header">
-          <h2>Dress Inspiration</h2>
-          <p>Look coordinated, festive, and photo-ready</p>
-        </div>
-
-        <div className="dress-layout">
-          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
-            <h3>Suggested Attire</h3>
-            <div className="attire-grid">
-              {dressSuggestions.map((item, idx) => (
-                <motion.div
-                  key={item.category}
-                  className="attire-card"
-                  style={{ '--attire-gradient': item.gradient, '--attire-border': item.border } as React.CSSProperties}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.07 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="attire-card-header">
-                    <div
-                      className="attire-icon-ring"
-                      style={{ background: item.iconBg }}
-                    >
-                      <div className="attire-icon-inner">
-                        <item.Icon size={28} color={item.iconColor} />
-                      </div>
-                    </div>
-                    <span className="attire-category">{item.category}</span>
-                  </div>
-                  <p className="attire-body">{item.text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
-            <h3>Color Palette</h3>
-            <div className="palette-swatches">
-              {dressPalette.map((shade) => (
-                <motion.div
-                  key={shade.name}
-                  className="palette-swatch"
-                  whileHover={{ y: -3, scale: 1.04 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-                >
-                  <div
-                    className="swatch-block"
-                    style={{ background: shade.color }}
-                    aria-hidden="true"
-                  />
-                  <span className="swatch-name">{shade.name}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
-            <h3>Theme</h3>
-            <div className="theme-tile-grid">
-              {dressThemes.map((theme) => (
-                <motion.div
-                  key={theme.name}
-                  className="theme-tile"
-                  style={{ '--tile-gradient': theme.gradient } as React.CSSProperties}
-                  whileHover={{ y: -4, scale: 1.03 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-                >
-                  <span className="theme-tile-name">{theme.name}</span>
-                  <span className="theme-tile-sub">{theme.sub}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
       <motion.section className="timeline-section" id="experience" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Experience Timeline</h2>
@@ -828,6 +750,84 @@ function App() {
               <ChevronRight size={18} />
             </button>
           </div>
+        </div>
+      </motion.section>
+
+      <motion.section className="dress-section" id="dress" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Dress Inspiration</h2>
+          <p>Look coordinated, festive, and photo-ready</p>
+        </div>
+
+        <div className="dress-layout">
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Suggested Attire</h3>
+            <div className="attire-grid">
+              {dressSuggestions.map((item, idx) => (
+                <motion.div
+                  key={item.category}
+                  className="attire-card"
+                  style={{ '--attire-gradient': item.gradient, '--attire-border': item.border } as React.CSSProperties}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.07 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="attire-card-header">
+                    <div
+                      className="attire-icon-ring"
+                      style={{ background: item.iconBg }}
+                    >
+                      <div className="attire-icon-inner">
+                        <item.Icon size={28} color={item.iconColor} />
+                      </div>
+                    </div>
+                    <span className="attire-category">{item.category}</span>
+                  </div>
+                  <p className="attire-body">{item.text}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Color Palette</h3>
+            <div className="palette-swatches">
+              {dressPalette.map((shade) => (
+                <motion.div
+                  key={shade.name}
+                  className="palette-swatch"
+                  whileHover={{ y: -3, scale: 1.04 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >
+                  <div
+                    className="swatch-block"
+                    style={{ background: shade.color }}
+                    aria-hidden="true"
+                  />
+                  <span className="swatch-name">{shade.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
+            <h3>Theme</h3>
+            <div className="theme-tile-grid">
+              {dressThemes.map((theme) => (
+                <motion.div
+                  key={theme.name}
+                  className="theme-tile"
+                  style={{ '--tile-gradient': theme.gradient } as React.CSSProperties}
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >
+                  <span className="theme-tile-name">{theme.name}</span>
+                  <span className="theme-tile-sub">{theme.sub}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </motion.section>
 
