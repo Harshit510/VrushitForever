@@ -988,7 +988,7 @@ function App() {
           <span className="fab-ring fab-ring-outer" aria-hidden="true" />
           <span className="fab-ring fab-ring-inner" aria-hidden="true" />
           <span className="fab-icon">
-            <ChevronsUp size={22} strokeWidth={2.5} color="#fff" />
+            <ChevronsUp size={16} strokeWidth={2.5} color="#fff" />
           </span>
         </motion.button>
       )}
