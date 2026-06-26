@@ -20,6 +20,7 @@ import {
 import './App.css'
 import proposalImage from './assets/f_1.png'
 import headerLogo from './assets/logo-transparent.png'
+import ganeshjiImg from './assets/ganeshji.png'
 
 const mapLink =
   'https://www.google.com/maps/search/?api=1&query=Janki%20Resort%20NH%2048%20near%20Kharera%20River%20Vaghaldhara%20Gujarat%20396375'
@@ -367,6 +368,17 @@ function App() {
 
         <div className="hero-content">
           <FloatingHearts />
+          <motion.div
+            className="ganesh-blessing"
+            initial={{ opacity: 0, scale: 0.88, y: 18 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.8, type: 'spring', stiffness: 120, damping: 18 }}
+          >
+            <div className="ganesh-halo" />
+            <img src={ganeshjiImg} alt="Ganesh Ji" className="ganesh-img" />
+            <p className="ganesh-mantra">ॐ गणेशाय नमः</p>
+          </motion.div>
+
           <motion.div
             className="hero-ceremony-title"
             initial={{ opacity: 0, y: 14 }}
