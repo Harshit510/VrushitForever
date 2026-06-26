@@ -355,8 +355,8 @@ function App() {
         </motion.a>
         <div className="nav-links">
           <a href="#details">Details</a>
-          <a href="#dress">Dress</a>
           <a href="#experience">Experience</a>
+          <a href="#dress">Dress</a>
           <a href="#venue">Venue</a>
         </div>
         <p className="nav-hashtag">#VrushitForever</p>
@@ -497,13 +497,13 @@ function App() {
                 <CalendarDays size={12} />
                 <span>Details</span>
               </a>
-              <a href="#dress">
-                <Sparkles size={12} />
-                <span>Dress</span>
-              </a>
               <a href="#experience">
                 <PartyPopper size={12} />
                 <span>Moments</span>
+              </a>
+              <a href="#dress">
+                <Sparkles size={12} />
+                <span>Dress</span>
               </a>
               <a href="#venue">
                 <MapPin size={12} />
@@ -831,6 +831,102 @@ function App() {
         </div>
       </motion.section>
 
+      <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="section-header">
+          <h2>Venue</h2>
+          <div className="section-ornament" aria-hidden="true">
+            <span className="ornament-line" />
+            <span className="ornament-diamond">◆</span>
+            <span className="ornament-line" />
+          </div>
+          <p>Where our celebration comes alive</p>
+        </div>
+
+        <motion.div
+          className="venue-card"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 18 }}
+        >
+          {/* Hero banner */}
+          <div className="venue-hero">
+            <div className="venue-hero-orb venue-hero-orb-1" aria-hidden="true" />
+            <div className="venue-hero-orb venue-hero-orb-2" aria-hidden="true" />
+            <span className="venue-hero-chip">✦ Celebration Destination ✦</span>
+            <h3 className="venue-name">Janki Resort</h3>
+            <div className="venue-hero-location">
+              <MapPin size={13} />
+              <span>NH 48, near Kharera River · Vaghaldhara, Gujarat</span>
+            </div>
+          </div>
+
+          {/* 3 info tiles */}
+          <div className="venue-tiles">
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-location">
+                <MapPin size={18} />
+              </div>
+              <p className="venue-tile-label">Address</p>
+              <p className="venue-tile-value">NH 48, near Kharera River</p>
+              <p className="venue-tile-value">Vaghaldhara, Gujarat 396375</p>
+            </motion.div>
+
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-phone">
+                <Phone size={18} />
+              </div>
+              <p className="venue-tile-label">Contact Persons</p>
+              <p className="venue-tile-value">Parth Rana: +91 9106110395</p>
+              <p className="venue-tile-value">Dax Rana: +91 6353139644</p>
+            </motion.div>
+
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-time">
+                <Clock size={18} />
+              </div>
+              <p className="venue-tile-label">Event Time</p>
+              <p className="venue-tile-value">5:00 PM onwards</p>
+              <p className="venue-tile-value">Friday, 24 July 2026</p>
+            </motion.div>
+          </div>
+
+          {/* Mood strip */}
+          <div className="venue-mood">
+            <div className="venue-mood-left">
+              <span className="venue-mood-eyebrow">Atmosphere</span>
+              <p className="venue-mood-quote">&ldquo;Elegant, warm,<br />and full of blessings&rdquo;</p>
+              <span className="venue-mood-rule" aria-hidden="true" />
+            </div>
+            <div className="venue-mood-right">
+              <p className="venue-mood-desc">Arrive a little early, meet both families, and enjoy a joyful evening of rituals, games, dance, and dinner.</p>
+              <div className="venue-mood-tags">
+                <span>✦ Rituals</span>
+                <span>✦ Games</span>
+                <span>✦ Garba</span>
+                <span>✦ Dinner</span>
+                <span>✦ Blessings</span>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <motion.a
+            href={mapLink}
+            target="_blank"
+            rel="noreferrer"
+            className="venue-map-cta"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <div className="venue-cta-inner">
+              <Navigation size={18} />
+              <span>Open in Maps</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.a>
+        </motion.div>
+      </motion.section>
+
       <motion.section className="family-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Invited With Love</h2>
@@ -929,93 +1025,6 @@ function App() {
         </AnimatePresence>
       </motion.section>
 
-      <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-        <div className="section-header">
-          <h2>Venue</h2>
-          <div className="section-ornament" aria-hidden="true">
-            <span className="ornament-line" />
-            <span className="ornament-diamond">◆</span>
-            <span className="ornament-line" />
-          </div>
-          <p>Where our celebration comes alive</p>
-        </div>
-
-        <motion.div
-          className="venue-card"
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 100, damping: 18 }}
-        >
-          {/* Hero banner */}
-          <div className="venue-hero">
-            <div className="venue-hero-orb venue-hero-orb-1" aria-hidden="true" />
-            <div className="venue-hero-orb venue-hero-orb-2" aria-hidden="true" />
-            <span className="venue-hero-chip">✦ Celebration Destination ✦</span>
-            <h3 className="venue-name">Janki Resort</h3>
-            <div className="venue-hero-location">
-              <MapPin size={13} />
-              <span>NH 48, near Kharera River · Vaghaldhara, Gujarat</span>
-            </div>
-          </div>
-
-          {/* 3 info tiles */}
-          <div className="venue-tiles">
-            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
-              <div className="venue-tile-icon venue-tile-icon-location">
-                <MapPin size={18} />
-              </div>
-              <p className="venue-tile-label">Address</p>
-              <p className="venue-tile-value">NH 48, near Kharera River</p>
-              <p className="venue-tile-value">Vaghaldhara, Gujarat 396375</p>
-            </motion.div>
-
-            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
-              <div className="venue-tile-icon venue-tile-icon-phone">
-                <Phone size={18} />
-              </div>
-              <p className="venue-tile-label">Contact Persons</p>
-              <p className="venue-tile-value">Parth Rana: +91 9106110395</p>
-              <p className="venue-tile-value">Dax Rana: +91 6353139644</p>
-            </motion.div>
-
-            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
-              <div className="venue-tile-icon venue-tile-icon-time">
-                <Clock size={18} />
-              </div>
-              <p className="venue-tile-label">Event Time</p>
-              <p className="venue-tile-value">5:00 PM onwards</p>
-              <p className="venue-tile-value">Friday, 24 July 2026</p>
-            </motion.div>
-          </div>
-
-          {/* Mood strip */}
-          <div className="venue-mood">
-            <span className="venue-mood-rule" aria-hidden="true" />
-            <div className="venue-mood-content">
-              <p className="venue-mood-quote">"Elegant, warm, and full of blessings"</p>
-              <p className="venue-mood-desc">Arrive a little early, meet both families, and enjoy a joyful evening of rituals, games, dance, and dinner.</p>
-            </div>
-            <span className="venue-mood-rule" aria-hidden="true" />
-          </div>
-
-          {/* CTA */}
-          <motion.a
-            href={mapLink}
-            target="_blank"
-            rel="noreferrer"
-            className="venue-map-cta"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <div className="venue-cta-inner">
-              <Navigation size={18} />
-              <span>Open in Maps</span>
-              <ChevronRight size={16} />
-            </div>
-          </motion.a>
-        </motion.div>
-      </motion.section>
-      
 
       <motion.section className="closing-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="closing-orb closing-orb-1" aria-hidden="true" />
@@ -1023,6 +1032,11 @@ function App() {
         <div className="closing-orb closing-orb-3" aria-hidden="true" />
         <div className="closing-starfield-a" aria-hidden="true" />
         <div className="closing-starfield-b" aria-hidden="true" />
+        <span className="cl-bulb cl-bulb-1" aria-hidden="true" />
+        <span className="cl-bulb cl-bulb-2" aria-hidden="true" />
+        <span className="cl-bulb cl-bulb-3" aria-hidden="true" />
+        <span className="cl-bulb cl-bulb-4" aria-hidden="true" />
+        <span className="cl-bulb cl-bulb-5" aria-hidden="true" />
 
         <motion.div
           className="closing-content"

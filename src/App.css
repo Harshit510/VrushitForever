@@ -2560,43 +2560,100 @@ main {
 
 /* Mood strip */
 .venue-mood {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 22px 28px;
-  background: linear-gradient(135deg, rgba(246, 231, 193, 0.3), rgba(255, 255, 255, 0.5));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, rgba(246, 231, 193, 0.22), rgba(255, 255, 255, 0.46));
   border-bottom: 1px solid rgba(183, 141, 74, 0.12);
+  align-items: center;
+}
+
+.venue-mood-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 36px;
+  border-right: 1px solid rgba(183, 141, 74, 0.22);
+  min-width: 0;
+}
+
+.venue-mood-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(183, 141, 74, 0.7);
 }
 
 .venue-mood-rule {
   display: block;
-  flex: 1;
+  width: 60%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(183, 141, 74, 0.45), transparent);
-  flex-shrink: 0;
-  max-width: 40px;
+  background: linear-gradient(90deg, rgba(183, 141, 74, 0.5), transparent);
 }
 
-.venue-mood-content {
-  text-align: center;
-  flex: 1;
+.venue-mood-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 36px;
+  min-width: 0;
+}
+
+.venue-mood-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.venue-mood-tags span {
+  font-family: 'Cinzel', serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(140, 100, 30, 0.75);
+  background: rgba(212, 168, 74, 0.1);
+  border: 1px solid rgba(183, 141, 74, 0.22);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
 }
 
 .venue-mood-quote {
-  font-family: 'Cinzel', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: 14px;
+  font-size: clamp(17px, 3vw, 22px);
   font-weight: 700;
   color: var(--secondary);
-  margin: 0 0 6px;
-  letter-spacing: 0.03em;
+  margin: 0;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
 .venue-mood-desc {
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.65;
+  line-height: 1.75;
   margin: 0;
+}
+
+@media (max-width: 640px) {
+  .venue-mood {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  .venue-mood-left {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(183, 141, 74, 0.18);
+    padding-bottom: 20px;
+  }
+  .venue-mood-right {
+    padding-left: 0;
+  }
 }
 
 /* CTA button */
@@ -2794,6 +2851,27 @@ main {
     255px 275px 0 0.5px rgba(255,255,255,0.26);
   animation: twinkleB 4.3s ease-in-out infinite alternate-reverse;
 }
+
+/* Warm bulb lights */
+.cl-bulb {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle, #fff6c8 0%, #f5c850 55%, transparent 100%);
+  box-shadow:
+    0 0 6px 3px rgba(255, 210, 90, 0.8),
+    0 0 18px 7px rgba(255, 190, 70, 0.3),
+    0 0 48px 18px rgba(255, 170, 50, 0.1);
+}
+
+.cl-bulb-1 { top: 8%;    left: 7%;   animation: bulbGlow 3.1s ease-in-out infinite alternate; }
+.cl-bulb-2 { top: 14%;   right: 8%;  animation: bulbGlow 2.6s ease-in-out infinite alternate-reverse; }
+.cl-bulb-3 { bottom: 22%; left: 9%;   animation: bulbGlow 3.8s ease-in-out infinite alternate; }
+.cl-bulb-4 { bottom: 18%; right: 7%;  animation: bulbGlow 2.2s ease-in-out infinite alternate-reverse; }
+.cl-bulb-5 { top: 50%;   right: 14%; animation: bulbGlow 4.0s ease-in-out infinite alternate; }
 
 /* Content */
 .closing-content {
@@ -3064,8 +3142,11 @@ main {
     display: flex !important;
     flex-direction: row;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
     scrollbar-width: none;
     gap: 14px;
     padding: 20px 10vw 16px;
@@ -3390,7 +3471,7 @@ main {
     align-items: center;
     gap: 6px;
     width: 100%;
-    margin: 2px auto 6px;
+    margin: 28px auto 6px;
     animation: navDockFloat 3.2s ease-in-out infinite;
     position: relative;
     z-index: 60;
