@@ -315,6 +315,14 @@ function App() {
                 y: mousePosition.y * 0.3,
               }}
             >
+              <motion.div
+                className="proposal-hashtag-badge"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+              >
+                #VrushitForever
+              </motion.div>
               <div className="image-frame">
                 <img src={proposalImage} alt="Harshit & Vrushika" />
                 <div className="frame-glow" />

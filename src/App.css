@@ -490,6 +490,37 @@ main {
   aspect-ratio: 4 / 5;
 }
 
+.proposal-hashtag-badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 26;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(183, 141, 74, 0.42);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.94), rgba(246, 231, 193, 0.86));
+  box-shadow: 0 12px 30px rgba(35, 25, 66, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(124, 17, 58, 0.18);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.proposal-hashtag-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.46) 50%, transparent 82%);
+  transform: translateX(-110%);
+  animation: titleShimmer 7s ease-in-out infinite;
+}
+
 .image-frame {
   position: relative;
   width: 100%;
@@ -1514,6 +1545,13 @@ main {
     max-width: 320px;
   }
 
+  .proposal-hashtag-badge {
+    top: -14px;
+    padding: 8px 18px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
   .couple-initials-watermark {
     font-size: 120px;
     bottom: -40px;
@@ -1760,6 +1798,13 @@ main {
 
   .proposal-container {
     max-width: 280px;
+  }
+
+  .proposal-hashtag-badge {
+    top: -12px;
+    padding: 7px 14px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
   }
 
   .hero-content {
