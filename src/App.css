@@ -3146,7 +3146,6 @@ main {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
-    touch-action: pan-x;
     scrollbar-width: none;
     gap: 14px;
     padding: 20px 10vw 16px;
