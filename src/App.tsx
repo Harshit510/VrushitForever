@@ -27,7 +27,7 @@ const invitedBySides = [
     side: "Vrushika's Side",
     note: 'Rana Family',
     families: [
-      'Late Shri Bhanabhai Icharam Rana & Late Smt. Pushpaben Bhanabhai Rana',
+      'Late Shri Bhanabhai Ichharam Rana & Late Smt. Pushpaben Bhanabhai Rana',
       'Mr. Rupeshkumar Bhanabhai Rana & Mrs. Manishaben Rupeshkumar Rana',
       'Dax Rupeshkumar Rana',
     ],
