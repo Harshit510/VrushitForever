@@ -326,6 +326,34 @@ function App() {
           </Tilt>
 
           <motion.div
+            className="mobile-quick-nav-shell"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          >
+            <p className="mobile-quick-nav-label">Quick Jump</p>
+            <p className="mobile-quick-nav-message">One tap to explore every celebration moment</p>
+            <div className="mobile-quick-nav" aria-label="Mobile quick navigation">
+              <a href="#details">
+                <CalendarDays size={12} />
+                <span>Details</span>
+              </a>
+              <a href="#dress">
+                <Sparkles size={12} />
+                <span>Dress</span>
+              </a>
+              <a href="#experience">
+                <PartyPopper size={12} />
+                <span>Moments</span>
+              </a>
+              <a href="#venue">
+                <MapPin size={12} />
+                <span>Venue</span>
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
             className="scroll-indicator"
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
