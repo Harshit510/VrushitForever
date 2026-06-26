@@ -106,10 +106,34 @@ const timelineEvents = [
 ]
 
 const dressSuggestions = [
-  'Women: Saree, lehenga, elegant engagement gown, pastel anarkali, sharara, or draped saree-gown in soft festive tones for a graceful modern look.',
-  'Men: Kurta set, bandhagala, Jodhpuri, Indo-western, or a blazer-kurta combination in coordinated shades for a polished celebration style.',
-  'Couples & Families: Coordinate your outfits for beautiful and timeless photographs.',
-  'Friends & Guests: Festive traditional or smart ethnic fusion attire in soft, elegant colors.',
+  {
+    category: 'Women',
+    emoji: '👗',
+    gradient: 'linear-gradient(148deg, #fce8f0 0%, #edd8f5 100%)',
+    border: 'rgba(200, 120, 160, 0.26)',
+    text: 'Saree, lehenga, elegant engagement gown, pastel anarkali, sharara, or draped saree-gown in soft festive tones.',
+  },
+  {
+    category: 'Men',
+    emoji: '🤵',
+    gradient: 'linear-gradient(148deg, #ddeeff 0%, #d8eee8 100%)',
+    border: 'rgba(90, 140, 190, 0.26)',
+    text: 'Kurta set, bandhagala, Jodhpuri, Indo-western, or a blazer-kurta combination in coordinated shades.',
+  },
+  {
+    category: 'Couples & Families',
+    emoji: '💑',
+    gradient: 'linear-gradient(148deg, #fdf3dc 0%, #fde2cc 100%)',
+    border: 'rgba(183, 141, 74, 0.28)',
+    text: 'Coordinate your outfits for beautiful and timeless photographs that capture every joyful moment.',
+  },
+  {
+    category: 'Friends & Guests',
+    emoji: '🎊',
+    gradient: 'linear-gradient(148deg, #e8e0fa 0%, #d8f0e8 100%)',
+    border: 'rgba(130, 100, 180, 0.26)',
+    text: 'Festive traditional or smart ethnic fusion attire in soft, elegant colors for a chic celebration look.',
+  },
 ]
 
 const dressPalette = [
@@ -557,11 +581,25 @@ function App() {
         <div className="dress-layout">
           <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
             <h3>Suggested Attire</h3>
-            <ul className="dress-list">
-              {dressSuggestions.map((item) => (
-                <li key={item}>{item}</li>
+            <div className="attire-grid">
+              {dressSuggestions.map((item, idx) => (
+                <motion.div
+                  key={item.category}
+                  className="attire-card"
+                  style={{ '--attire-gradient': item.gradient, '--attire-border': item.border } as React.CSSProperties}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.07 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="attire-card-header">
+                    <span className="attire-emoji">{item.emoji}</span>
+                    <span className="attire-category">{item.category}</span>
+                  </div>
+                  <p className="attire-body">{item.text}</p>
+                </motion.div>
               ))}
-            </ul>
+            </div>
           </motion.div>
 
           <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>

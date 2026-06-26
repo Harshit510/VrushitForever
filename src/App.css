@@ -954,16 +954,70 @@ main {
   color: var(--primary);
 }
 
-.dress-list {
-  margin: 0;
-  padding-left: 18px;
+/* ===== ATTIRE LOOKBOOK GRID ===== */
+.attire-grid {
   display: grid;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.dress-list li {
-  color: var(--text-dark);
-  line-height: 1.6;
+.attire-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--attire-border, rgba(183, 141, 74, 0.22));
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(35, 25, 66, 0.09);
+  transition: box-shadow 0.32s ease, transform 0.32s ease;
+  cursor: default;
+}
+
+.attire-card-header {
+  padding: 18px 12px 13px;
+  background: var(--attire-gradient, linear-gradient(148deg, #f8f3e9, #f0e8d4));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(183, 141, 74, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.attire-card-header::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.attire-emoji {
+  font-size: 32px;
+  line-height: 1;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
+}
+
+.attire-category {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.attire-body {
+  padding: 13px 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.72;
+  margin: 0;
 }
 
 .palette-grid {
