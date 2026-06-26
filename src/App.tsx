@@ -395,49 +395,61 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 1 }}
           >
-            <motion.h1
-              className="couple-name"
-              initial={{ y: 60, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
+            <motion.div
+              className="couple-name-wrap"
+              initial={{ x: -40, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.4, type: 'spring', stiffness: 110, damping: 18 }}
             >
-              Harshit Rana
-            </motion.h1>
+              <span className="name-rule" aria-hidden="true" />
+              <h1 className="couple-name">Harshit Rana</h1>
+              <span className="name-rule" aria-hidden="true" />
+            </motion.div>
 
             <motion.div
               className="ring-divider"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              animate={{ scale: [1, 1.15, 1], rotate: [0, 8, -8, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
             >
-              💍
+              <span className="ring-ornament" aria-hidden="true">✦</span>
+              <div className="ring-icon-wrap">
+                <div className="ring-outer-halo" />
+                <span className="ring-emoji">💍</span>
+              </div>
+              <span className="ring-ornament" aria-hidden="true">✦</span>
             </motion.div>
 
-            <motion.h1
-              className="couple-name"
-              initial={{ y: 60, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6 }}
+            <motion.div
+              className="couple-name-wrap"
+              initial={{ x: 40, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6, type: 'spring', stiffness: 110, damping: 18 }}
             >
-              Dr. Vrushika Rana
-            </motion.h1>
+              <span className="name-rule" aria-hidden="true" />
+              <h1 className="couple-name couple-name-bride">Dr. Vrushika Rana</h1>
+              <span className="name-rule" aria-hidden="true" />
+            </motion.div>
           </motion.div>
 
           <motion.p
             className="tagline"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.85, duration: 0.7 }}
           >
+            <span className="tagline-ornament" aria-hidden="true">✦</span>
             Forever Begins
+            <span className="tagline-ornament" aria-hidden="true">✦</span>
           </motion.p>
 
           <motion.div
             className="date-badge"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1 }}
+            initial={{ y: 20, opacity: 0, scale: 0.92 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            transition={{ delay: 1.05, type: 'spring', stiffness: 120, damping: 16 }}
           >
-            24 July 2026
+            <CalendarDays size={15} strokeWidth={2.2} />
+            <span>24 July 2026</span>
           </motion.div>
 
           <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.04}>

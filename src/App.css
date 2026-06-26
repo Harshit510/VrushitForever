@@ -470,69 +470,173 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 18px;
   flex-wrap: wrap;
+}
+
+/* Name wrap with ornamental rules */
+.couple-name-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.name-rule {
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(183, 141, 74, 0.7), transparent);
+  border-radius: 999px;
 }
 
 .couple-name {
   font-family: 'Cinzel', serif;
-  font-size: clamp(42px, 7vw, 82px);
+  font-size: clamp(36px, 6.5vw, 76px);
   font-weight: 700;
   letter-spacing: 2px;
-  color: var(--primary);
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   text-transform: capitalize;
-  text-shadow: 0 8px 24px rgba(35, 25, 66, 0.16), 0 2px 0 rgba(255, 255, 255, 0.6);
-  filter: drop-shadow(0 2px 10px rgba(124, 17, 58, 0.08));
+  background: linear-gradient(145deg, #1a1040 0%, #3a1060 45%, #22184a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 3px 12px rgba(35, 25, 66, 0.18));
+  animation: nameShimmer 6s ease-in-out infinite;
+  background-size: 200% 100%;
 }
 
-.couple-name-section .couple-name:first-child {
-  color: #22184a;
+.couple-name-bride {
+  background: linear-gradient(145deg, #5a0a30 0%, #8c1848 45%, #3a1050 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
 }
 
-.couple-name-section .couple-name:last-child {
-  color: #331e58;
+@keyframes nameShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
 .ring-divider {
-  font-size: 46px;
-  animation: heartBeat 1.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   line-height: 1;
 }
 
-@keyframes heartBeat {
-  0%, 100% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.3);
-  }
-  50% {
-    transform: scale(1);
-  }
+.ring-ornament {
+  font-size: 14px;
+  color: rgba(183, 141, 74, 0.8);
+  text-shadow: 0 0 8px rgba(255, 200, 60, 0.6);
+  animation: ornamentPulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes ornamentPulse {
+  from { opacity: 0.5; transform: scale(0.88); }
+  to   { opacity: 1;   transform: scale(1.12); }
+}
+
+.ring-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+}
+
+.ring-outer-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(183, 141, 74, 0.38);
+  box-shadow:
+    0 0 14px rgba(255, 200, 60, 0.28),
+    0 0 28px rgba(255, 180, 20, 0.14),
+    inset 0 0 10px rgba(255, 200, 60, 0.1);
+  animation: haloSpin 8s linear infinite;
+}
+
+@keyframes haloSpin {
+  from { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.08); }
+  to   { transform: rotate(360deg) scale(1); }
+}
+
+.ring-emoji {
+  font-size: 34px;
+  display: block;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 10px rgba(180, 120, 0, 0.35));
 }
 
 .tagline {
-  font-size: clamp(24px, 4vw, 48px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(18px, 3.5vw, 36px);
   font-family: 'Cinzel', serif;
-  color: var(--secondary);
-  margin: 0;
-  letter-spacing: 2px;
+  font-style: italic;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  margin: 0;
+  background: linear-gradient(120deg, #b07010 0%, #d4a020 40%, #b07010 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: taglineGlow 4s ease-in-out infinite;
+  position: relative;
+}
+
+.tagline-ornament {
+  font-size: 11px;
+  opacity: 0.7;
+  font-style: normal;
+  -webkit-text-fill-color: rgba(183, 141, 74, 0.75);
+  animation: ornamentPulse 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes taglineGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
 .date-badge {
-  display: inline-block;
-  padding: 14px 28px;
-  background: rgba(255, 255, 255, 0.8);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(183, 141, 74, 0.4);
+  border: 1px solid rgba(183, 141, 74, 0.38);
+  border-left: 3px solid rgba(183, 141, 74, 0.75);
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
   color: var(--secondary);
-  box-shadow: 0 10px 40px rgba(124, 17, 58, 0.1);
+  box-shadow:
+    0 10px 36px rgba(124, 17, 58, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.date-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.45) 50%, transparent 75%);
+  transform: translateX(-120%);
+  animation: titleShimmer 5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Proposal Container */
