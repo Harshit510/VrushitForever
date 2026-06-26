@@ -14,6 +14,8 @@ import {
   PartyPopper,
   Phone,
   Sparkles,
+  User,
+  Users,
 } from 'lucide-react'
 import './App.css'
 import proposalImage from './assets/f_1.png'
@@ -108,30 +110,38 @@ const timelineEvents = [
 const dressSuggestions = [
   {
     category: 'Women',
-    emoji: '👗',
+    Icon: Sparkles,
     gradient: 'linear-gradient(148deg, #fce8f0 0%, #edd8f5 100%)',
     border: 'rgba(200, 120, 160, 0.26)',
+    iconBg: 'rgba(255,255,255,0.72)',
+    iconColor: '#b03868',
     text: 'Saree, lehenga, elegant engagement gown, pastel anarkali, sharara, or draped saree-gown in soft festive tones.',
   },
   {
     category: 'Men',
-    emoji: '🤵',
+    Icon: User,
     gradient: 'linear-gradient(148deg, #ddeeff 0%, #d8eee8 100%)',
     border: 'rgba(90, 140, 190, 0.26)',
+    iconBg: 'rgba(255,255,255,0.72)',
+    iconColor: '#3a6ea8',
     text: 'Kurta set, bandhagala, Jodhpuri, Indo-western, or a blazer-kurta combination in coordinated shades.',
   },
   {
     category: 'Couples & Families',
-    emoji: '💑',
+    Icon: Heart,
     gradient: 'linear-gradient(148deg, #fdf3dc 0%, #fde2cc 100%)',
     border: 'rgba(183, 141, 74, 0.28)',
+    iconBg: 'rgba(255,255,255,0.72)',
+    iconColor: '#b07020',
     text: 'Coordinate your outfits for beautiful and timeless photographs that capture every joyful moment.',
   },
   {
     category: 'Friends & Guests',
-    emoji: '🎊',
+    Icon: Users,
     gradient: 'linear-gradient(148deg, #e8e0fa 0%, #d8f0e8 100%)',
     border: 'rgba(130, 100, 180, 0.26)',
+    iconBg: 'rgba(255,255,255,0.72)',
+    iconColor: '#6040a8',
     text: 'Festive traditional or smart ethnic fusion attire in soft, elegant colors for a chic celebration look.',
   },
 ]
@@ -143,9 +153,20 @@ const dressPalette = [
   { name: 'Sage Pastel', color: '#cfe2d4' },
   { name: 'Peach Cream', color: '#f7dfcd' },
   { name: 'Ivory Pearl', color: '#f8f3e9' },
+  { name: 'Rose Quartz', color: '#f4c2c8' },
+  { name: 'Mint Whisper', color: '#c2eadc' },
+  { name: 'Lemon Chiffon', color: '#fdf2be' },
+  { name: 'Mauve Petal', color: '#eac4d8' },
+  { name: 'Dusty Coral', color: '#f7c4b4' },
+  { name: 'Champagne Gold', color: '#f5e2b8' },
 ]
 
-const dressThemes = ['Traditional Elegance', 'Indo-Western Grace', 'Pastel Royal', 'Festive Chic']
+const dressThemes = [
+  { name: 'Traditional Elegance', gradient: 'linear-gradient(148deg, #7c113a, #b03060)', sub: 'Saree · Lehenga · Kurta' },
+  { name: 'Indo-Western Grace', gradient: 'linear-gradient(148deg, #231942, #4a3888)', sub: 'Fusion · Contemporary' },
+  { name: 'Pastel Royal', gradient: 'linear-gradient(148deg, #7a5218, #b88030)', sub: 'Soft · Regal · Dreamy' },
+  { name: 'Festive Chic', gradient: 'linear-gradient(148deg, #5a0e6e, #9838a8)', sub: 'Bold · Vibrant · Glam' },
+]
 
 // Countdown renderer
 const CountdownRenderer = ({ days, hours, minutes, seconds }: any) => (
@@ -593,7 +614,14 @@ function App() {
                   whileHover={{ y: -5 }}
                 >
                   <div className="attire-card-header">
-                    <span className="attire-emoji">{item.emoji}</span>
+                    <div
+                      className="attire-icon-ring"
+                      style={{ background: item.iconBg }}
+                    >
+                      <div className="attire-icon-inner">
+                        <item.Icon size={28} color={item.iconColor} />
+                      </div>
+                    </div>
                     <span className="attire-category">{item.category}</span>
                   </div>
                   <p className="attire-body">{item.text}</p>
@@ -604,23 +632,39 @@ function App() {
 
           <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
             <h3>Color Palette</h3>
-            <div className="palette-grid">
+            <div className="palette-swatches">
               {dressPalette.map((shade) => (
-                <div className="palette-item" key={shade.name}>
-                  <span className="palette-dot" style={{ backgroundColor: shade.color }} aria-hidden="true" />
-                  <span>{shade.name}</span>
-                </div>
+                <motion.div
+                  key={shade.name}
+                  className="palette-swatch"
+                  whileHover={{ y: -3, scale: 1.04 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >
+                  <div
+                    className="swatch-block"
+                    style={{ background: shade.color }}
+                    aria-hidden="true"
+                  />
+                  <span className="swatch-name">{shade.name}</span>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
           <motion.div className="dress-card" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
             <h3>Theme</h3>
-            <div className="theme-tags">
+            <div className="theme-tile-grid">
               {dressThemes.map((theme) => (
-                <span key={theme} className="theme-tag">
-                  {theme}
-                </span>
+                <motion.div
+                  key={theme.name}
+                  className="theme-tile"
+                  style={{ '--tile-gradient': theme.gradient } as React.CSSProperties}
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >
+                  <span className="theme-tile-name">{theme.name}</span>
+                  <span className="theme-tile-sub">{theme.sub}</span>
+                </motion.div>
               ))}
             </div>
           </motion.div>
