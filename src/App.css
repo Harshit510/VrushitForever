@@ -1491,6 +1491,8 @@ main {
   transition: color 0.25s ease;
   outline: none;
   white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .family-tab:hover {
