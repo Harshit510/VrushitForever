@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion, type PanInfo } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import Countdown from 'react-countdown'
 import {
@@ -100,8 +100,8 @@ const timelineEvents = [
   {
     icon: Music,
     time: 'All evening',
-    title: 'Activities & Dances',
-    text: 'Activities continue along with dance performances, music, blessings, dinner, and memories.',
+    title: 'Dance, Garba & Dinner',
+    text: 'Celebrate the evening with lively dance, traditional garba, delicious dinner, heartfelt blessings, and unforgettable memories.',
   },
 ]
 
@@ -201,8 +201,30 @@ function FloatingHearts() {
   )
 }
 
+const cardVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 180 : -180,
+    rotate: dir > 0 ? 10 : -10,
+    opacity: 0,
+    scale: 0.93,
+  }),
+  center: {
+    x: 0,
+    rotate: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -180 : 180,
+    rotate: dir > 0 ? -10 : 10,
+    opacity: 0,
+    scale: 0.93,
+  }),
+}
+
 function App() {
   const [activeEvent, setActiveEvent] = useState(0)
+  const [swipeDir, setSwipeDir] = useState(1)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -216,6 +238,32 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
+
+  const timelineLength = timelineEvents.length
+
+  const jumpToTimelineCard = (index: number) => {
+    setActiveEvent(index)
+  }
+
+  const paginateTimeline = (direction: number) => {
+    setSwipeDir(direction)
+    setActiveEvent((current) => (current + direction + timelineLength) % timelineLength)
+  }
+
+  const handleTimelineDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const offsetX = info.offset.x
+    const velocityX = info.velocity.x
+    const swipePower = Math.abs(offsetX) * 0.45 + Math.abs(velocityX)
+
+    if (swipePower < 220) return
+
+    if (offsetX < 0) {
+      paginateTimeline(1)
+      return
+    }
+
+    paginateTimeline(-1)
+  }
 
   return (
     <main>
@@ -480,30 +528,103 @@ function App() {
           <p>A journey of moments</p>
         </div>
 
-        <div className="timeline-grid">
+        <div className="timeline-steps" role="tablist" aria-label="Timeline events">
           {timelineEvents.map((event, index) => {
             const Icon = event.icon
+            const isActive = activeEvent === index
+            const isPast = index < activeEvent
             return (
-              <motion.div
+              <button
                 key={event.title}
-                className={`timeline-card ${activeEvent === index ? 'active' : ''}`}
-                onClick={() => setActiveEvent(index)}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                type="button"
+                role="tab"
+                className={`timeline-step${isActive ? ' active' : ''}${isPast ? ' past' : ''}`}
+                onClick={() => jumpToTimelineCard(index)}
+                aria-selected={isActive}
               >
-                <div className="timeline-icon">
-                  <Icon size={28} />
-                </div>
-                <div className="timeline-content">
-                  <span className="timeline-time">{event.time}</span>
-                  <h3>{event.title}</h3>
-                  <p>{event.text}</p>
-                </div>
-              </motion.div>
+                <span className="step-node" aria-hidden="true">
+                  <Icon size={16} />
+                  <span className="step-num">{String(index + 1).padStart(2, '0')}</span>
+                </span>
+                <span className="step-label">{event.title}</span>
+              </button>
             )
           })}
+        </div>
+
+        <div className="timeline-stack" aria-live="polite">
+          {timelineEvents.map((_, layerOffset) => {
+            if (layerOffset === 0) return null
+            const index = (activeEvent + layerOffset) % timelineLength
+            const nextEvent = timelineEvents[index]
+            return (
+              <div
+                key={`${nextEvent.title}-stack-${layerOffset}`}
+                className="timeline-stack-layer"
+                style={{
+                  transform: `translate(${layerOffset * 10}px, ${layerOffset * 9}px) scale(${1 - layerOffset * 0.055})`,
+                  opacity: Math.max(0.2, 0.78 - layerOffset * 0.18),
+                  zIndex: timelineLength - layerOffset,
+                }}
+                aria-hidden="true"
+              />
+            )
+          })}
+
+          <div className="timeline-card-row">
+            <button
+              type="button"
+              className="timeline-arrow timeline-arrow-left"
+              onClick={() => paginateTimeline(-1)}
+              aria-label="Show previous timeline card"
+            >
+              <ChevronRight size={18} />
+            </button>
+
+            <AnimatePresence mode="wait" custom={swipeDir}>
+              {(() => {
+                const event = timelineEvents[activeEvent]
+                const Icon = event.icon
+                return (
+                  <motion.div
+                    key={event.title}
+                    custom={swipeDir}
+                    variants={cardVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="timeline-card timeline-card-swipe active"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.9}
+                    dragTransition={{ bounceStiffness: 340, bounceDamping: 20 }}
+                    onDragEnd={handleTimelineDragEnd}
+                    transition={{ type: 'spring', stiffness: 300, damping: 26, mass: 0.85 }}
+                    whileHover={{ y: -8, rotate: -1.5 }}
+                    whileDrag={{ scale: 1.04, rotate: 10, cursor: 'grabbing' }}
+                  >
+                    <div className="timeline-icon">
+                      <Icon size={28} />
+                    </div>
+                    <div className="timeline-content">
+                      <span className="timeline-time">{event.time}</span>
+                      <h3>{event.title}</h3>
+                      <p>{event.text}</p>
+                    </div>
+                  </motion.div>
+                )
+              })()}
+            </AnimatePresence>
+
+            <button
+              type="button"
+              className="timeline-arrow timeline-arrow-right"
+              onClick={() => paginateTimeline(1)}
+              aria-label="Show next timeline card"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </motion.section>
 
