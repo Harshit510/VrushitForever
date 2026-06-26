@@ -16,7 +16,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import './App.css'
-import proposalImage from './assets/img_1.png'
+import proposalImage from './assets/f_1.png'
 import headerLogo from './assets/logo-transparent.png'
 
 const mapLink =
@@ -71,7 +71,7 @@ const ceremonyDetails = [
     title: 'Contact Persons',
     highlights: ['For arrivals and coordination'],
     contacts: [
-      { name: 'Harshit Rana', phone: '+91 8866547230' },
+      { name: 'Parth Rana', phone: '+91 9106110395' },
       { name: 'Dax Rana', phone: '+91 6353139644' },
     ],
     note: 'For arrivals and ceremony coordination.',
@@ -106,9 +106,10 @@ const timelineEvents = [
 ]
 
 const dressSuggestions = [
-  'Women: Traditional saree or lehenga in elegant tones.',
-  'Men: Kurta set, bandhagala, or smart Indo-western attire.',
-  'Couples/Families: Coordinated looks for beautiful photos.',
+  'Women: Saree, lehenga, elegant engagement gown, pastel anarkali, sharara, or draped saree-gown in soft festive tones for a graceful modern look.',
+  'Men: Kurta set, bandhagala, Jodhpuri, Indo-western, or a blazer-kurta combination in coordinated shades for a polished celebration style.',
+  'Couples & Families: Coordinate your outfits for beautiful and timeless photographs.',
+  'Friends & Guests: Festive traditional or smart ethnic fusion attire in soft, elegant colors.',
 ]
 
 const dressPalette = [
@@ -241,11 +242,10 @@ function App() {
             <div className="bg-glow glow-3" />
             <div className="noise-texture" />
           </div>
-
-          <FloatingHearts />
         </div>
 
         <div className="hero-content">
+          <FloatingHearts />
           <motion.div
             className="hero-ceremony-title"
             initial={{ opacity: 0, y: 14 }}
@@ -508,7 +508,6 @@ function App() {
       <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Venue</h2>
-          <p>Janki Resort, Vaghaldhara</p>
         </div>
 
         <motion.div className="venue-card" whileHover={{ scale: 1.02 }}>
@@ -522,7 +521,7 @@ function App() {
                 <Phone size={18} />
                 <div className="venue-contact-list">
                   <p>Contact Persons</p>
-                  <span>Harshit Rana: +91 8866547230</span>
+                  <span>Parth Rana: +91 9106110395</span>
                   <span>Dax Rana: +91 6353139644</span>
                 </div>
               </div>
