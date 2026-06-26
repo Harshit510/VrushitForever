@@ -5,6 +5,7 @@ import Countdown from 'react-countdown'
 import {
   CalendarDays,
   ChevronRight,
+  ChevronsUp,
   Clock,
   Gift,
   Heart,
@@ -273,7 +274,17 @@ function App() {
   const [swipeDir, setSwipeDir] = useState(1)
   const [activeDetailCard, setActiveDetailCard] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [activeFamily, setActiveFamily] = useState<'both' | 'harshit' | 'vrushika'>('both')
   const detailsGridRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const handleScroll = () => setShowScrollTop(window.scrollY > 320)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -340,7 +351,8 @@ function App() {
   }
 
   return (
-    <main>
+    <>
+      <main>
       <nav className="luxury-nav" aria-label="Main navigation">
         <motion.a className="nav-brand" href="#home" aria-label="Engagement home">
           <span className="logo-mark" aria-hidden="true">
@@ -804,35 +816,99 @@ function App() {
       <motion.section className="family-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Invited With Love</h2>
+          <div className="section-ornament" aria-hidden="true">
+            <span className="ornament-line" />
+            <span className="ornament-diamond">◆</span>
+            <span className="ornament-line" />
+          </div>
           <p>Two families, one beautiful celebration</p>
         </div>
 
-        <div className="family-sides-grid">
-          {invitedBySides.map((group, index) => (
-            <motion.div
-              key={group.side}
-              className="family-side-card"
-              initial={{ y: 22, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: index * 0.15 }}
-              whileHover={{ y: -8 }}
+        {/* Family tab selector */}
+        <div className="family-tab-bar" role="tablist" aria-label="Select family">
+          {([
+                      { key: 'harshit',  label: 'Harshit',     cardIndex: 2 },
+            { key: 'both',    label: 'Together ♥',   cardIndex: 0 },
+            { key: 'vrushika',label: 'Vrushika',     cardIndex: 1 },
+          ] as const).map((tab) => (
+            <button
+              key={tab.key}
+              role="tab"
+              aria-selected={activeFamily === tab.key}
+              className={`family-tab family-tab-${tab.key}${activeFamily === tab.key ? ' family-tab-active' : ''}`}
+              onClick={() => setActiveFamily(tab.key)}
             >
-              <div className="family-side-head">
-                <span>{group.side}</span>
-                <p>{group.note}</p>
-              </div>
-
-              <div className="family-list">
-                {group.families.map((host) => (
-                  <div key={host} className="family-line">
-                    <Heart size={16} />
-                    <p>{host}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+              {activeFamily === tab.key && (
+                <motion.span
+                  className="family-tab-pill"
+                  layoutId="family-tab-pill"
+                  transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+                  aria-hidden="true"
+                />
+              )}
+              <span className="family-tab-label">{tab.label}</span>
+            </button>
           ))}
         </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFamily}
+            className={`family-sides-grid${activeFamily !== 'both' ? ' family-single' : ''}`}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.32, ease: 'easeOut' }}
+          >
+            {invitedBySides
+              .filter((_, i) =>
+                activeFamily === 'both' ? true :
+                activeFamily === 'vrushika' ? i === 0 : i === 1
+              )
+              .map((group, index) => {
+                const cardIndex = activeFamily === 'both' ? index :
+                                  activeFamily === 'vrushika' ? 0 : 1
+                return (
+                  <motion.div
+                    key={group.side}
+                    className={`family-side-card family-card-${cardIndex + 1}`}
+                    initial={{ x: cardIndex === 0 ? -40 : 40, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.1, type: 'spring', stiffness: 110, damping: 18 }}
+                    whileHover={{ y: -6 }}
+                  >
+                    <div className="family-card-watermark" aria-hidden="true">❤</div>
+                    <div className="family-card-top-bar" aria-hidden="true" />
+
+                    <div className="family-side-head">
+                      <span className="family-side-badge">{group.side}</span>
+                      <div className="family-name-row">
+                        <span className="family-name-ornament" aria-hidden="true">✦</span>
+                        <p className="family-name-title">{group.note}</p>
+                        <span className="family-name-ornament" aria-hidden="true">✦</span>
+                      </div>
+                      <div className="family-head-rule" aria-hidden="true" />
+                    </div>
+
+                    <div className="family-list">
+                      {group.families.map((host, i) => (
+                        <motion.div
+                          key={host}
+                          className="family-line"
+                          initial={{ opacity: 0, x: cardIndex === 0 ? -16 : 16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.08 + 0.15, type: 'spring', stiffness: 120, damping: 20 }}
+                        >
+                          <span className="family-bullet" aria-hidden="true">◆</span>
+                          <p>{host}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )
+              })}
+          </motion.div>
+        </AnimatePresence>
       </motion.section>
 
       <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
@@ -895,6 +971,29 @@ function App() {
       </motion.section>
 
     </main>
+
+    <AnimatePresence>
+      {showScrollTop && (
+        <motion.button
+          className="scroll-top-fab"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          initial={{ opacity: 0, scale: 0.4, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.4, y: 30 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+          whileHover={{ scale: 1.12 }}
+          whileTap={{ scale: 0.92 }}
+        >
+          <span className="fab-ring fab-ring-outer" aria-hidden="true" />
+          <span className="fab-ring fab-ring-inner" aria-hidden="true" />
+          <span className="fab-icon">
+            <ChevronsUp size={22} strokeWidth={2.5} color="#fff" />
+          </span>
+        </motion.button>
+      )}
+    </AnimatePresence>
+    </>
   )
 }
 

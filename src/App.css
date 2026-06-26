@@ -1312,26 +1312,137 @@ main {
   line-height: 1;
 }
 
+/* ===== SCROLL TO TOP FAB ===== */
+.scroll-top-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 22px;
+  z-index: 9999;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(145deg, #c8a84b 0%, #e2c97e 40%, #a88830 100%);
+  box-shadow:
+    0 8px 28px rgba(180, 140, 40, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: visible;
+}
+
+.scroll-top-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.28) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+/* Outer glow ring */
+.fab-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fab-ring-outer {
+  inset: -8px;
+  border: 1.5px solid rgba(212, 168, 32, 0.42);
+  box-shadow: 0 0 18px rgba(255, 200, 40, 0.22);
+  animation: fabRingSpin 6s linear infinite;
+}
+
+.fab-ring-inner {
+  inset: -3px;
+  border: 1px solid rgba(255, 220, 80, 0.35);
+  animation: fabRingSpin 4s linear infinite reverse;
+}
+
+@keyframes fabRingSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Ambient glow pulse behind FAB */
+.scroll-top-fab::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 168, 32, 0.28) 0%, transparent 70%);
+  animation: fabGlowPulse 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes fabGlowPulse {
+  from { opacity: 0.5; transform: scale(0.9); }
+  to   { opacity: 1;   transform: scale(1.15); }
+}
+
+.fab-icon {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fabIconBounce 2s ease-in-out infinite;
+}
+
+@keyframes fabIconBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
 /* ===== FAMILY SECTION ===== */
 .family-section {
   position: relative;
   padding: 100px 6vw;
-  background: linear-gradient(135deg, rgba(246, 231, 193, 0.3), rgba(255, 255, 255, 0.5));
+  background: linear-gradient(160deg, #fdf7ef 0%, #faf2e8 50%, #f5ece0 100%);
   overflow: hidden;
   isolation: isolate;
 }
 
 .family-section::before {
-  width: 190px;
-  height: 190px;
-  left: -28px;
-  bottom: -26px;
+  content: '';
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 28% 30%, rgba(107, 147, 196, 0.3) 0 12%, transparent 13%),
-    radial-gradient(circle at 52% 46%, rgba(250, 242, 227, 0.95) 0 10%, rgba(212, 189, 146, 0.34) 11% 13%, transparent 14%),
-    radial-gradient(circle at 72% 30%, rgba(183, 141, 74, 0.24) 0 8%, transparent 9%);
+    radial-gradient(ellipse at 10% 20%, rgba(183, 141, 74, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(124, 17, 58, 0.06) 0%, transparent 50%);
+  pointer-events: none;
 }
 
+/* Section ornament divider */
+.section-ornament {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 8px 0 14px;
+}
+
+.ornament-line {
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(183, 141, 74, 0.65), transparent);
+}
+
+.ornament-diamond {
+  font-size: 9px;
+  color: rgba(183, 141, 74, 0.8);
+  line-height: 1;
+}
+
+/* Grid */
 .family-sides-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1340,82 +1451,243 @@ main {
   margin: 0 auto;
 }
 
-.family-side-card {
-  position: relative;
-  padding: 28px 24px;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(246, 231, 193, 0.5));
-  border: 1px solid rgba(183, 141, 74, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 16px 38px rgba(35, 25, 66, 0.11);
-  transition: all 0.4s ease;
-  overflow: hidden;
+.family-sides-grid.family-single {
+  grid-template-columns: minmax(320px, 520px);
+  justify-content: center;
 }
 
-.family-side-card::before {
-  content: '';
+/* ===== FAMILY TAB BAR ===== */
+.family-tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 auto 36px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(183, 141, 74, 0.22);
+  border-radius: 999px;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  box-shadow:
+    0 8px 28px rgba(35, 25, 66, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.family-tab {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+  outline: none;
+  white-space: nowrap;
+}
+
+.family-tab:hover {
+  color: var(--primary);
+}
+
+.family-tab-pill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(125deg, rgba(255, 255, 255, 0.15), transparent 45%);
-  pointer-events: none;
+  border-radius: 999px;
+  z-index: 0;
+}
+
+.family-tab-harshit .family-tab-pill {
+  background: linear-gradient(120deg, rgba(58, 110, 168, 0.14), rgba(58, 110, 168, 0.08));
+  border: 1px solid rgba(58, 110, 168, 0.28);
+  box-shadow: 0 4px 14px rgba(58, 110, 168, 0.16);
+}
+
+.family-tab-both .family-tab-pill {
+  background: linear-gradient(120deg, rgba(183, 141, 74, 0.18), rgba(124, 17, 58, 0.1));
+  border: 1px solid rgba(183, 141, 74, 0.34);
+  box-shadow: 0 4px 14px rgba(183, 141, 74, 0.2);
+}
+
+.family-tab-vrushika .family-tab-pill {
+  background: linear-gradient(120deg, rgba(176, 56, 104, 0.14), rgba(176, 56, 104, 0.08));
+  border: 1px solid rgba(176, 56, 104, 0.28);
+  box-shadow: 0 4px 14px rgba(176, 56, 104, 0.16);
+}
+
+.family-tab-label {
+  position: relative;
+  z-index: 1;
+}
+
+.family-tab-active.family-tab-harshit { color: #3a6ea8; }
+.family-tab-active.family-tab-both    { color: var(--secondary); }
+.family-tab-active.family-tab-vrushika { color: #b03868; }
+
+/* Base card */
+.family-side-card {
+  position: relative;
+  padding: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 20px 50px rgba(35, 25, 66, 0.12),
+    0 4px 12px rgba(35, 25, 66, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .family-side-card:hover {
-  box-shadow: 0 24px 56px rgba(183, 141, 74, 0.24);
+  box-shadow:
+    0 32px 70px rgba(35, 25, 66, 0.18),
+    0 6px 18px rgba(183, 141, 74, 0.2);
 }
 
+/* Per-card accent left border + top bar color */
+.family-card-1 { border-left: 4px solid rgba(176, 56, 104, 0.55); }
+.family-card-2 { border-left: 4px solid rgba(58, 110, 168, 0.55); }
+
+/* Top accent bar */
+.family-card-top-bar {
+  height: 5px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.family-card-1 .family-card-top-bar {
+  background: linear-gradient(90deg, #b03868, #e07090, #d4a820, transparent);
+}
+
+.family-card-2 .family-card-top-bar {
+  background: linear-gradient(90deg, #3a6ea8, #6090c8, #d4a820, transparent);
+}
+
+/* Faded watermark heart */
+.family-card-watermark {
+  position: absolute;
+  bottom: -18px;
+  right: -10px;
+  font-size: 140px;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  user-select: none;
+  font-family: serif;
+}
+
+/* Card head */
 .family-side-head {
   position: relative;
   z-index: 1;
-  margin-bottom: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(183, 141, 74, 0.22);
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid rgba(183, 141, 74, 0.16);
 }
 
-.family-side-head span {
+/* Side badge */
+.family-side-badge {
   display: inline-flex;
-  padding: 7px 12px;
+  align-items: center;
+  padding: 5px 13px;
   border-radius: 999px;
-  background: rgba(124, 17, 58, 0.1);
-  color: var(--secondary);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
-.family-side-head p {
-  margin: 10px 0 0;
+.family-card-1 .family-side-badge {
+  background: rgba(176, 56, 104, 0.1);
+  color: #b03868;
+  border: 1px solid rgba(176, 56, 104, 0.22);
+}
+
+.family-card-2 .family-side-badge {
+  background: rgba(58, 110, 168, 0.1);
+  color: #3a6ea8;
+  border: 1px solid rgba(58, 110, 168, 0.22);
+}
+
+/* Family name row with ornaments */
+.family-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.family-name-ornament {
+  font-size: 10px;
+  color: rgba(183, 141, 74, 0.7);
+  flex-shrink: 0;
+}
+
+.family-name-title {
   font-family: 'Cinzel', serif;
-  font-size: 30px;
+  font-size: 26px;
+  font-weight: 700;
   color: var(--primary);
-  line-height: 1;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  background: linear-gradient(145deg, #1a1040, #3a1060);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+.family-head-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(183, 141, 74, 0.5), rgba(183, 141, 74, 0.1), transparent);
+  margin-top: 2px;
+}
+
+/* Member list */
 .family-list {
   display: grid;
-  gap: 12px;
+  gap: 0;
+  padding: 10px 24px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .family-line {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: 18px 1fr;
+  grid-template-columns: 14px 1fr;
   align-items: start;
-  gap: 10px;
-  padding: 12px 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.66);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(183, 141, 74, 0.1);
 }
 
-.family-line svg {
-  color: var(--secondary);
-  margin-top: 4px;
+.family-line:last-child {
+  border-bottom: none;
 }
+
+.family-bullet {
+  font-size: 7px;
+  margin-top: 7px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.family-card-1 .family-bullet { color: #b03868; }
+.family-card-2 .family-bullet { color: #3a6ea8; }
 
 .family-line p {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: var(--text-dark);
   margin: 0;
   font-weight: 600;
