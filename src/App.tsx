@@ -171,54 +171,48 @@ const dressThemes = [
 ]
 
 // Countdown renderer
-const CountdownRenderer = ({ days, hours, minutes, seconds }: any) => (
-  <div className="countdown-grid">
-    <div className="countdown-item">
-      <motion.div
-        key={days}
-        initial={{ rotateX: -90 }}
-        animate={{ rotateX: 0 }}
-        className="countdown-value"
-      >
-        {String(days).padStart(2, '0')}
-      </motion.div>
-      <span>Days</span>
+const CountdownRenderer = ({ days, hours, minutes, seconds }: any) => {
+  const items = [
+    { value: days,    label: 'Days',    key: 'days'    },
+    { value: hours,   label: 'Hours',   key: 'hours'   },
+    { value: minutes, label: 'Minutes', key: 'minutes' },
+    { value: seconds, label: 'Seconds', key: 'seconds' },
+  ]
+  return (
+    <div className="countdown-grid">
+      {items.map((item, idx) => (
+        <div key={item.key} className="countdown-item-wrap">
+          {idx > 0 && (
+            <motion.span
+              className="countdown-sep"
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+              aria-hidden="true"
+            >
+              :
+            </motion.span>
+          )}
+          <div className="countdown-item">
+            <div className="digit-card">
+              <div className="digit-card-top-glow" aria-hidden="true" />
+              <div className="digit-card-split" aria-hidden="true" />
+              <motion.div
+                key={item.value}
+                className="countdown-value"
+                initial={{ rotateX: -80, opacity: 0.3, scale: 0.9 }}
+                animate={{ rotateX: 0, opacity: 1, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+              >
+                {String(item.value).padStart(2, '0')}
+              </motion.div>
+            </div>
+            <span className="countdown-label">{item.label}</span>
+          </div>
+        </div>
+      ))}
     </div>
-    <div className="countdown-item">
-      <motion.div
-        key={hours}
-        initial={{ rotateX: -90 }}
-        animate={{ rotateX: 0 }}
-        className="countdown-value"
-      >
-        {String(hours).padStart(2, '0')}
-      </motion.div>
-      <span>Hours</span>
-    </div>
-    <div className="countdown-item">
-      <motion.div
-        key={minutes}
-        initial={{ rotateX: -90 }}
-        animate={{ rotateX: 0 }}
-        className="countdown-value"
-      >
-        {String(minutes).padStart(2, '0')}
-      </motion.div>
-      <span>Minutes</span>
-    </div>
-    <div className="countdown-item">
-      <motion.div
-        key={seconds}
-        initial={{ rotateX: -90 }}
-        animate={{ rotateX: 0 }}
-        className="countdown-value"
-      >
-        {String(seconds).padStart(2, '0')}
-      </motion.div>
-      <span>Seconds</span>
-    </div>
-  </div>
-)
+  )
+}
 
 function FloatingHearts() {
   const [hearts, setHearts] = useState<number[]>([])
@@ -533,9 +527,33 @@ function App() {
 
 
       <motion.section className="countdown-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <div className="countdown-orb countdown-orb-1" aria-hidden="true" />
+        <div className="countdown-orb countdown-orb-2" aria-hidden="true" />
+        <div className="countdown-orb countdown-orb-3" aria-hidden="true" />
+        <div className="countdown-starfield-a" aria-hidden="true" />
+        <div className="countdown-starfield-b" aria-hidden="true" />
+        <div className="countdown-starfield-c" aria-hidden="true" />
+        <span className="cd-bulb cd-bulb-1" aria-hidden="true" />
+        <span className="cd-bulb cd-bulb-2" aria-hidden="true" />
+        <span className="cd-bulb cd-bulb-3" aria-hidden="true" />
+        <span className="cd-bulb cd-bulb-4" aria-hidden="true" />
+        <span className="cd-bulb cd-bulb-5" aria-hidden="true" />
         <div className="countdown-container">
+          <p className="countdown-eyebrow">The Day Arrives In</p>
           <h2>Countdown to Forever</h2>
+          <div className="countdown-ornament" aria-hidden="true">
+            <span className="countdown-orn-line" />
+            <span className="countdown-orn-gem">◆</span>
+            <span className="countdown-orn-line" />
+          </div>
           <Countdown date={new Date('2026-07-24T17:00:00').getTime()} renderer={CountdownRenderer} />
+          <div className="countdown-event-strip">
+            <span>24 July 2026</span>
+            <span className="strip-dot" aria-hidden="true">·</span>
+            <span>5:00 PM onwards</span>
+            <span className="strip-dot" aria-hidden="true">·</span>
+            <span>Janki Resort, Gujarat</span>
+          </div>
         </div>
       </motion.section>
 
@@ -914,59 +932,171 @@ function App() {
       <motion.section className="venue-section" id="venue" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
         <div className="section-header">
           <h2>Venue</h2>
+          <div className="section-ornament" aria-hidden="true">
+            <span className="ornament-line" />
+            <span className="ornament-diamond">◆</span>
+            <span className="ornament-line" />
+          </div>
+          <p>Where our celebration comes alive</p>
         </div>
 
-        <motion.div className="venue-card" whileHover={{ scale: 1.02 }}>
-          <div className="venue-info">
-            <div className="venue-main">
-              <span className="venue-chip">Celebration Destination</span>
-              <h3>Janki Resort</h3>
-              <p>NH 48, near Kharera River</p>
-              <p>Vaghaldhara, Gujarat 396375</p>
-              <div className="venue-contact">
-                <Phone size={18} />
-                <div className="venue-contact-list">
-                  <p>Contact Persons</p>
-                  <span>Parth Rana: +91 9106110395</span>
-                  <span>Dax Rana: +91 6353139644</span>
-                </div>
-              </div>
-            </div>
-            <div className="venue-side-panel">
-              <p>How It Feels</p>
-              <h4>Elegant, warm, and full of blessings</h4>
-              <span>
-                Arrive a little early, meet both families, and enjoy a joyful
-                evening of rituals, games, dance, and dinner.
-              </span>
-              <motion.a
-                href={mapLink}
-                target="_blank"
-                rel="noreferrer"
-                className="primary-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Navigation size={18} />
-                Open Map
-              </motion.a>
+        <motion.div
+          className="venue-card"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 18 }}
+        >
+          {/* Hero banner */}
+          <div className="venue-hero">
+            <div className="venue-hero-orb venue-hero-orb-1" aria-hidden="true" />
+            <div className="venue-hero-orb venue-hero-orb-2" aria-hidden="true" />
+            <span className="venue-hero-chip">✦ Celebration Destination ✦</span>
+            <h3 className="venue-name">Janki Resort</h3>
+            <div className="venue-hero-location">
+              <MapPin size={13} />
+              <span>NH 48, near Kharera River · Vaghaldhara, Gujarat</span>
             </div>
           </div>
+
+          {/* 3 info tiles */}
+          <div className="venue-tiles">
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-location">
+                <MapPin size={18} />
+              </div>
+              <p className="venue-tile-label">Address</p>
+              <p className="venue-tile-value">NH 48, near Kharera River</p>
+              <p className="venue-tile-value">Vaghaldhara, Gujarat 396375</p>
+            </motion.div>
+
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-phone">
+                <Phone size={18} />
+              </div>
+              <p className="venue-tile-label">Contact Persons</p>
+              <p className="venue-tile-value">Parth Rana: +91 9106110395</p>
+              <p className="venue-tile-value">Dax Rana: +91 6353139644</p>
+            </motion.div>
+
+            <motion.div className="venue-tile" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <div className="venue-tile-icon venue-tile-icon-time">
+                <Clock size={18} />
+              </div>
+              <p className="venue-tile-label">Event Time</p>
+              <p className="venue-tile-value">5:00 PM onwards</p>
+              <p className="venue-tile-value">Friday, 24 July 2026</p>
+            </motion.div>
+          </div>
+
+          {/* Mood strip */}
+          <div className="venue-mood">
+            <span className="venue-mood-rule" aria-hidden="true" />
+            <div className="venue-mood-content">
+              <p className="venue-mood-quote">"Elegant, warm, and full of blessings"</p>
+              <p className="venue-mood-desc">Arrive a little early, meet both families, and enjoy a joyful evening of rituals, games, dance, and dinner.</p>
+            </div>
+            <span className="venue-mood-rule" aria-hidden="true" />
+          </div>
+
+          {/* CTA */}
+          <motion.a
+            href={mapLink}
+            target="_blank"
+            rel="noreferrer"
+            className="venue-map-cta"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <div className="venue-cta-inner">
+              <Navigation size={18} />
+              <span>Open in Maps</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.a>
         </motion.div>
       </motion.section>
       
 
       <motion.section className="closing-section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-        <motion.div className="closing-content" initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}>
-          <p className="closing-quote">"Every love story is beautiful, but ours is our favourite."</p>
-          <h2>Harshit ❤ Vrushika</h2>
-          <p className="closing-text">See You Soon</p>
-          <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
-            ✨
+        <div className="closing-orb closing-orb-1" aria-hidden="true" />
+        <div className="closing-orb closing-orb-2" aria-hidden="true" />
+        <div className="closing-orb closing-orb-3" aria-hidden="true" />
+        <div className="closing-starfield-a" aria-hidden="true" />
+        <div className="closing-starfield-b" aria-hidden="true" />
+
+        <motion.div
+          className="closing-content"
+          initial={{ y: 40, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <div className="closing-top-ornament" aria-hidden="true">
+            <span className="closing-orn-line" />
+            <span className="closing-orn-gem">✦</span>
+            <span className="closing-orn-line" />
+          </div>
+
+          <motion.p
+            className="closing-quote"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+          >
+            &ldquo;Every love story is beautiful, but ours is our favourite.&rdquo;
+          </motion.p>
+
+          <motion.div
+            className="closing-couple"
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, type: 'spring', stiffness: 110, damping: 18 }}
+          >
+            <span className="closing-name">Harshit</span>
+            <motion.span
+              className="closing-heart"
+              animate={{ scale: [1, 1.35, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              aria-hidden="true"
+            >
+              ❤
+            </motion.span>
+            <span className="closing-name">Vrushika</span>
+          </motion.div>
+
+          <motion.p
+            className="closing-text"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.45 }}
+          >
+            See You Soon
+          </motion.p>
+
+          <motion.div
+            className="closing-date-chip"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 }}
+          >
+            <CalendarDays size={13} />
+            <span>Friday, 24 July 2026 &nbsp;&middot;&nbsp; 5:00 PM</span>
+          </motion.div>
+
+          <motion.div
+            className="closing-seal"
+            initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ delay: 0.65, type: 'spring', stiffness: 140, damping: 16 }}
+          >
+            <span className="closing-seal-text">#VrushitForever</span>
           </motion.div>
         </motion.div>
+
         <div className="closing-bottom" aria-label="Copyright">
-          <p className="closing-copyright">✦ © 2026 Harshit Rana. ✦</p>
+          <p className="closing-copyright">© 2026 Harshit Rana · All Rights Reserved</p>
+          <p className="closing-copyright">
+            ✦ &ldquo;Vrushyy, you are the grace in my journey, the warmth in my world, and the reason every tomorrow feels worth every yesterday.&rdquo; — Harshit ❤
+          </p>
         </div>
       </motion.section>
 
