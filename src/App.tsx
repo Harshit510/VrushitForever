@@ -59,7 +59,7 @@ const ceremonyDetails = [
     icon: Clock,
     label: 'Time',
     title: '5:00 PM onwards',
-    highlights: ['Evening celebration', 'Arrive on time to meet'],
+    highlights: ['Evening celebration', 'Arrive on time'],
     note: 'Arrive on time to meet and greet both families before the couple entry begins.',
   },
   {
